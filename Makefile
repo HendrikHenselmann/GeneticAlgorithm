@@ -1,5 +1,5 @@
-CC := g++ # This is the main compiler
-# CC := clang --analyze # and comment out the linker last line for sanity
+CC := g++  # This is the main compiler
+# CC := clang --analyze  # and comment out the linker last line for sanity
 SRCDIR := src
 BUILDDIR := build
 TARGET := bin/runner
@@ -7,7 +7,7 @@ TARGET := bin/runner
 SRCEXT := c
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g # -Wall
+CFLAGS := -g  # -Wall
 LIB := -lm
 INC := -I include
 
@@ -25,10 +25,10 @@ clean:
 
 # Tests
 tester:
-	$(CC) $(CFLAGS) test/tester.cpp $(INC) $(LIB) -o bin/tester
+	$(CC) $(CFLAGS) test/tester.c $(INC) $(LIB) -o bin/tester
 
 # Spikes
 ticket:
-	$(CC) $(CFLAGS) spikes/ticket.cpp $(INC) $(LIB) -o bin/ticket
+	$(CC) $(CFLAGS) spikes/ticket.c $(INC) $(LIB) -o bin/ticket
 
 .PHONY: clean
