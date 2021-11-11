@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "../include/Knapsack.h"
+
 int main() {
-  printf("hello world\n");
-  return 0;
+    knapsack_displayProblem();
+    return 0;
 }
