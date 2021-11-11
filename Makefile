@@ -2,12 +2,12 @@ CC := gcc  # This is the main compiler
 # CC := clang --analyze  # and comment out the linker last line for sanity
 SRCDIR := src
 BUILDDIR := build
-TARGET := bin/runner
+TARGET := bin/exe
 
 SRCEXT := c
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g  # -Wall
+CFLAGS := -std=c11 -g -pedantic -Wall
 LIB := -lm
 INC := -I include
 
