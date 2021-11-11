@@ -1,5 +1,4 @@
-CC := gcc  # This is the main compiler
-# CC := clang --analyze  # and comment out the linker last line for sanity
+CC := clang   # --analyze
 SRCDIR := src
 BUILDDIR := build
 TARGET := bin/exe
