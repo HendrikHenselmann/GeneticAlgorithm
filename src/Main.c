@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "../include/Knapsack.h"
+#include "../include/Mutation.h"
 
 int main() {
     // Test Individuals
@@ -18,6 +19,7 @@ int main() {
     knapsack_displayIndividual(indi2);
 
     // Free all memory allocations
+    mutate(indi1);
     free(indi1);
     free(indi2);
 
