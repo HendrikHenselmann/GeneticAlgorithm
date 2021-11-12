@@ -110,7 +110,7 @@ int knapsack_calcOptimum() {
     int iterationFitness = 0;
 
     // Iterate through all possible individuals and check their values
-    for (size_t iterInd = 0; iterInd < (size_t) round(pow(2, NUM_ITEMS)); iterInd++) {
+    for (size_t iterInd = 0; iterInd < round(pow(2, NUM_ITEMS)); iterInd++) {
         // Set the individual to the binary encoding of the number iterInd
         for (size_t i = 0; i < NUM_ITEMS; i++) {
             if (iterInd % i == 1) {
