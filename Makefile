@@ -1,12 +1,12 @@
 CC := clang   # --analyze
 SRCDIR := src
 BUILDDIR := build
-TARGET := bin/exe
+TARGET := bin/main
 
 SRCEXT := c
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -std=c11 -g -pedantic -Wall
+CFLAGS := -std=c11 -g  # -pedantic -Wall
 LIB := -lm
 INC := -I include
 
@@ -21,21 +21,14 @@ compile: $(TARGET)
 
 $(TARGET): $(OBJECTS)
 	@echo " Linking..."
+	@mkdir -p bin
 	@echo " $(CC) $^ -o $(TARGET) $(LIB)"; $(CC) $^ -o $(TARGET) $(LIB)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(BUILDDIR)
-	for file in $(OBJECTS); do mkdir -p $$(dirname $$file); done;
+	@mkdir -p $(dir $@)
 	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 clean:
 	@echo " Cleaning...";
 	@echo " $(RM) -r $(BUILDDIR) $(TARGET)"; $(RM) -r $(BUILDDIR) $(TARGET)
-
-# Tests
-test:
-	$(CC) $(CFLAGS) test/tester.c $(INC) $(LIB) -o bin/tester
-
-# Spikes
-ticket:
-	$(CC) $(CFLAGS) spikes/ticket.c $(INC) $(LIB) -o bin/ticket
