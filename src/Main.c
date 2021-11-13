@@ -19,7 +19,6 @@ int main() {
     knapsack_displayIndividual(indi2);
 
     // Free all memory allocations
-    mutate(indi1);
     free(indi1);
     free(indi2);
 

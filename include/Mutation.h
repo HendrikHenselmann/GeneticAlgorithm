@@ -5,6 +5,6 @@
 
 #include "DTypes.h"
 
-void mutate(Individual_t individual);
+void mutate(Individual_t individual, int size_of_individual, float probability);
 
 #endif
