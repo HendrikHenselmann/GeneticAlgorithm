@@ -16,6 +16,7 @@ void printPopulation(Population_t population) {
         for (size_t i = 0; i < population.individualSize; i++) {
         printf("%d", population.array[indiIndex][i]);
         }
+        printf("\n");
     }
     printf("%s\n", separator);
 }
