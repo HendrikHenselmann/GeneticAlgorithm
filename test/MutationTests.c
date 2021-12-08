@@ -5,27 +5,33 @@
 
 #include "../include/Mutation.h"
 
-long NUM_ITEMS = 100000000;
+long NUM_ITEMS = 5;
 
 int main() {
     Individual_t ind1 = calloc(NUM_ITEMS, sizeof(bool));
+    Individual_t ind2 = calloc(NUM_ITEMS, sizeof(bool));
+    Population_t pop1 = malloc(sizeof(ind1) * 2);
+    pop1[0] = ind1;
+    pop1[1] = ind2;
+    printf("im here");
 
-    mutate(ind1, NUM_ITEMS, 0.5);
 
-    long counter = 0;
+    // mutate(ind1, NUM_ITEMS, 0.5);
 
-    for (long x = 0; x < NUM_ITEMS; x++) {
+    // long counter = 0;
 
-        if (ind1[x]) {
-            counter ++;
-        }
-    }
+    // for (long x = 0; x < NUM_ITEMS; x++) {
 
-    float ratio = (float) counter/NUM_ITEMS;
+    //     if (ind1[x]) {
+    //         counter ++;
+    //     }
+    // }
 
-    printf("Of %ld items there are %ld true values which is a ratio of %f\n", NUM_ITEMS, counter, ratio);
+    // float ratio = (float) counter/NUM_ITEMS;
 
-    free(ind1);
+    // printf("Of %ld items there are %ld true values which is a ratio of %f", NUM_ITEMS, counter, ratio);
+
+    // free(ind1);
 
     return 0;
 }
