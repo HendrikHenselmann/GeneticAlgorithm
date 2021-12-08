@@ -6,8 +6,9 @@
 // ----------------------------------------------------------------------------
 // Imports
 // ----------------------------------------------------------------------------
+// External headers
 #include <stdlib.h>
-
+// Internal headers
 #include "DTypes.h"
 // ----------------------------------------------------------------------------
 
@@ -43,7 +44,7 @@ void knapsack_displayProblem(void);
 // Display an Individual interpreted according to the problem
 void knapsack_displayIndividual(Individual_t individual);
 // Calculate the optimal solution
-int knapsack_calcOptimum();
+int knapsack_calcOptimum(void);
 // ----------------------------------------------------------------------------
 
 #endif  // KNAPSACK_H_
