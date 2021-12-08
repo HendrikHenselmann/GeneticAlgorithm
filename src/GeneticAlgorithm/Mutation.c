@@ -6,6 +6,16 @@
 #include <stdbool.h>
 #include "../../include/Mutation.h"
 
+void mutate_population(Population_t *population, int size_of_individual, int size_of_population) {
+  Population_t *temp_population;
+  temp_population = malloc(sizeof(bool) * size_of_individual * size_of_population);
+  printf("temp population size %d", sizeof(temp_population));
+
+  for (int x = 0; x < size_of_population; x ++) {
+    printf("hello there");
+  }
+}
+
 void mutate(Individual_t individual, int size_of_individual, float probability) {
 
   float calc_probability = probability * 100;

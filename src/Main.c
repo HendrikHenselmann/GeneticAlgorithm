@@ -22,5 +22,19 @@ int main() {
     free(indi1);
     free(indi2);
 
+    Individual_t ind1 = calloc(NUM_ITEMS, sizeof(bool));
+    Individual_t ind2 = calloc(NUM_ITEMS, sizeof(bool));
+    Population_t pop1 = malloc(sizeof(ind1) * 2);
+
+    mutate_population(pop1, sizeof(ind1), sizeof(pop1));
+
+    pop1[0] = ind1;
+    pop1[1] = ind2;
+    printf("im here");
+
+    free(ind1);
+    free(ind2);
+    free(pop1);
+
     return 0;
 }
