@@ -101,7 +101,7 @@ void knapsack_displayIndividual(Individual_t individual) {
 }
 
 // Calculate the optimal solution fitness
-int knapsack_calcOptimum() {
+int knapsack_calcOptimum(void) {
     // Initialize an iterating individual
     Individual_t iterationIndi = malloc(NUM_ITEMS * sizeof(bool));
 
@@ -110,10 +110,13 @@ int knapsack_calcOptimum() {
     int iterationFitness = 0;
 
     // Iterate through all possible individuals and check their values
-    for (size_t iterInd = 0; iterInd < round(pow(2, NUM_ITEMS)); iterInd++) {
+    for (size_t iterInd = 0; iterInd < round(pow(2.0, (float) NUM_ITEMS)); iterInd++) {
+
         // Set the individual to the binary encoding of the number iterInd
         for (size_t i = 0; i < NUM_ITEMS; i++) {
-            if (iterInd % i == 1) {
+
+            // Source: https://stackoverflow.com/questions/2249731/how-do-i-get-bit-by-bit-data-from-an-integer-value-in-c
+            if ((iterInd & ( 1 << i )) >> i) {
                 iterationIndi[i] = true;
             }
         }
