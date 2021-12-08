@@ -22,7 +22,7 @@ Item_t itemList[NUM_ITEMS] = {
 };
 
 // Defining a seperation line
-char seperator[] = "======================================================================";
+char separator[] = "======================================================================";
 
 // Accumulation of individuals weight
 int accumulatedIndividualWeight(Individual_t individual) {
@@ -57,29 +57,29 @@ int knapsack_fitness(Individual_t individual) {
 // Display the problem
 void knapsack_displayProblem(void) {
     // Print the heading and a short description
-    printf("\n\n%s", seperator);
+    printf("\n\n%s", separator);
     printf("\nThis is the knapsack problem");
-    printf("\n%s", seperator);
+    printf("\n%s", separator);
     printf("\nThere is a predefined set of items and the goal of this game\n"
            "is to select the subset accumulating the greatest value. The accumulated\n"
            "weight of these items is limited by the weight cap of the knapsack.");
-    printf("\n%s", seperator);
+    printf("\n%s", separator);
 
     // Print the set of items
     printf("\nThis is the set of available items:");
     for (size_t i = 0; i < NUM_ITEMS; i++) {
         printf("\n\t-o- %02d | %02d", itemList[i].weight, itemList[i].value);
     }
-    printf("\n%s\n\n", seperator);
+    printf("\n%s\n\n", separator);
     return;
 }
 
 // Display an Individual interpreted according to the problem
 void knapsack_displayIndividual(Individual_t individual) {
     // Print the heading
-    printf("\n\n%s", seperator);
+    printf("\n\n%s", separator);
     printf("\nIndividual:");
-    printf("\n%s", seperator);
+    printf("\n%s", separator);
 
     // Print the genes / items
     printf("\n      weight | value");
@@ -91,11 +91,11 @@ void knapsack_displayIndividual(Individual_t individual) {
     }
 
     // Print the accumulated weight and value / fitness
-    printf("\n%s", seperator);
+    printf("\n%s", separator);
     printf("\nacc. weight: %03d\t\tacc. value (fitness): %03d",
             accumulatedIndividualWeight(individual),
             knapsack_fitness(individual));
-    printf("\n%s\n\n", seperator);
+    printf("\n%s\n\n", separator);
 
     return;
 }
