@@ -1,7 +1,7 @@
 #include "../../include/DTypes.h"
 
 void printIndividual(Individual_t individual, size_t individualSize) {
-    printf("Individual:\n===========\n");
+    printf("\nIndividual:\n===========\n");
     for (size_t i = 0; i < individualSize; i++) {
         printf("%d", individual[i]);
     }
@@ -10,7 +10,7 @@ void printIndividual(Individual_t individual, size_t individualSize) {
 
 void printPopulation(Population_t population) {
     char separator[] = "======================================================================";
-    printf("Population:\n");
+    printf("\nPopulation:\n");
     printf("%s\n", separator);
     for (size_t indiIndex = 0; indiIndex < population.populationSize; indiIndex++) {
         for (size_t i = 0; i < population.individualSize; i++) {
