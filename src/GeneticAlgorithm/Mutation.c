@@ -12,11 +12,11 @@ void mutate_population(Population_t *population, int size_of_individual, int siz
   printf("temp population size %lu", sizeof(temp_population));
 
   for (int x = 0; x < size_of_population; x ++) {
-    printf("hello there");
+    mutate_individual(population[x], size_of_individual, 0.5);
   }
 }
 
-void mutate(Individual_t individual, int size_of_individual, float probability) {
+void mutate_individual(Individual_t individual, int size_of_individual, float probability) {
 
   float calc_probability = probability * 100;
 

@@ -10,10 +10,11 @@ long NUM_ITEMS = 5;
 int main() {
     Individual_t ind1 = calloc(NUM_ITEMS, sizeof(bool));
     Individual_t ind2 = calloc(NUM_ITEMS, sizeof(bool));
-    Population_t pop1 = malloc(sizeof(ind1) * 2);
+    Population_t pop1 = malloc(sizeof(ind1) * 2 + sizeof(Population_t));
     pop1[0] = ind1;
     pop1[1] = ind2;
-    printf("im here");
+
+    mutate_population(pop1, 5, 2);
 
 
     // mutate(ind1, NUM_ITEMS, 0.5);
