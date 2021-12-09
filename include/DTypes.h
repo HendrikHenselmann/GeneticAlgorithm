@@ -10,11 +10,14 @@
 typedef bool *Individual_t;
 
 // Population
-typedef struct {
+typedef struct Population_ {
     size_t populationSize;
     size_t individualSize;
     Individual_t *array;
-} Population_t;
+} *Population_t;
+
+// Freeing all the allocated memory.
+void freePopulation(Population_t population);
 
 // Pretty printing functions
 void printIndividual(Individual_t individual, size_t individualSize);

@@ -1,3 +1,5 @@
+// Copyright [2021] <Nicola Distl, Hendrik Henselmann>
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

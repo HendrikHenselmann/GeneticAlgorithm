@@ -35,7 +35,7 @@ exec: $(TARGET)
 	$(TARGET)
 
 test: $(TESTTARGETS)
-	$(foreach test,$(TESTTARGETS), ./$(test) &&) echo "\nPassed all that should pass.\n"
+	$(foreach test, $(TESTTARGETS), echo "\n$$(basename $(test))..." && ./$(test) &&) echo "\nPassed all that should pass.\n"
 
 $(TARGET): $(OBJECTS)
 	@echo " Linking..."
