@@ -52,9 +52,9 @@ int main() {
     indi7[5] = true;
     indi7[6] = true;
     Individual_t indi8 = calloc(NUM_ITEMS, sizeof(bool));
-    indi8[0] = false;
+    indi8[0] = true;
     indi8[4] = true;
-    indi8[6] = true;
+    indi8[7] = true;
     indi8[9] = true;
 // ----------------------------------------------------------------------------
 
@@ -74,8 +74,8 @@ int main() {
 // ----------------------------------------------------------------------------
     // Tests of the optimal solution function
 // ----------------------------------------------------------------------------
-    // assert(knapsack_calcOptimum() == 94);
-    // assert(knapsack_calcOptimum() == knapsack_fitness(indi8));
+    assert(knapsack_calcOptimum() == 98);
+    assert(knapsack_calcOptimum() == knapsack_fitness(indi8));
 // ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------
