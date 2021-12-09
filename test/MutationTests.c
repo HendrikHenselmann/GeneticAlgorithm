@@ -10,11 +10,20 @@ long NUM_ITEMS = 5;
 int main() {
     Individual_t ind1 = calloc(NUM_ITEMS, sizeof(bool));
     Individual_t ind2 = calloc(NUM_ITEMS, sizeof(bool));
-    Population_t pop1 = malloc(sizeof(ind1) * 2 + sizeof(Population_t));
-    pop1[0] = ind1;
-    pop1[1] = ind2;
+    Individual_t *array = malloc(sizeof(Individual_t) * 2);
+    Population_t pop1 = {
+        .populationSize = 2,
+        .individualSize = NUM_ITEMS,
+        .array= array
+    };
+    pop1.array[0] = ind1;
+    pop1.array[1] = ind2;
 
-    mutate_population(pop1, 5, 2);
+    printPopulation(pop1);
+
+    mutate_population(pop1, 0.5);
+
+    printPopulation(pop1);
 
 
     // mutate(ind1, NUM_ITEMS, 0.5);
