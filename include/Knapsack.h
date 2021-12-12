@@ -38,7 +38,10 @@ typedef struct {
 // Functions
 // ----------------------------------------------------------------------------
 // Calculate the fitness function of an individual according to the problem
-int knapsack_fitness(Individual_t individual);
+float knapsack_individualFitness(Individual_t individual);
+// Calculate the fitness function of the whole population according to the problem
+// Writing the fitness into the fitnessArray
+void knapsack_populationFitness(Population_t population, float *fitnessArray);
 // Display the problem
 void knapsack_displayProblem(void);
 // Display an Individual interpreted according to the problem

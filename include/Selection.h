@@ -3,9 +3,9 @@
 #ifndef SELECTION_H_
 #define SELECTION_H_
 
-#include <../../include/DTypes.h>
+#include "./DTypes.h"
 
 // Selecting individuals for the crossover step
-Population_t select(float elitismRatio);
+SelectedIndividuals_t select(float elitismRatio, Population_t population);
 
 #endif  // SELECTION_H_

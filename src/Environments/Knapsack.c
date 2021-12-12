@@ -38,7 +38,7 @@ int accumulatedIndividualWeight(Individual_t individual) {
 
 // ----------------------------------------------------------------------------
 // Calculate the fitness function of an individual according to the problem
-int knapsack_fitness(Individual_t individual) {
+float knapsack_individualFitness(Individual_t individual) {
 
     // Calculate accumulated weight
     int accWeight = accumulatedIndividualWeight(individual);
@@ -47,13 +47,23 @@ int knapsack_fitness(Individual_t individual) {
     if (accWeight > KNAPSACK_WEIGHT_CAP) { return 0; };
 
     // Calculate accumulated value
-    int accValue = 0;
+    float accValue = 0;
     for (size_t i = 0; i < NUM_ITEMS; i++) {
         if (individual[i]) {
             accValue += itemList[i].value;
         }
     }
     return accValue;
+}
+
+// Calculate the fitness function of the whole population according to the problem
+// Writing the fitness into the fitnessArray
+void knapsack_populationFitness(Population_t population, float *fitnessArray) {
+    
+    for (size_t individualIndex = 0; individualIndex < population->populationSize; individualIndex++) {
+        fitnessArray[individualIndex] = knapsack_individualFitness(population->array[individualIndex]);
+    }
+
 }
 
 // Display the problem
@@ -94,9 +104,9 @@ void knapsack_displayIndividual(Individual_t individual) {
 
     // Print the accumulated weight and value / fitness
     printf("\n%s", separator);
-    printf("\nacc. weight: %03d\t\tacc. value (fitness): %03d",
+    printf("\nacc. weight: %03d\t\tacc. value (fitness): %03.2f",
             accumulatedIndividualWeight(individual),
-            knapsack_fitness(individual));
+            knapsack_individualFitness(individual));
     printf("\n%s\n\n", separator);
 
     return;
@@ -130,7 +140,7 @@ int knapsack_calcOptimum(void) {
         }
 
         // Calculate the individual fitness
-        iterationFitness = knapsack_fitness(iterationIndi);
+        iterationFitness = knapsack_individualFitness(iterationIndi);
 
         // Overwrite the fitness if current individuals fitness exceeds the previous one
         if (iterationFitness > solutionFitness) {

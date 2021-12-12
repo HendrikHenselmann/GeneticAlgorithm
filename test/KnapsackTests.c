@@ -63,20 +63,20 @@ int main() {
 // ----------------------------------------------------------------------------
     // Tests of the Fitness function
 // ----------------------------------------------------------------------------
-    assert(knapsack_fitness(indi1) == 0);
-    assert(knapsack_fitness(indi2) == 0);
-    assert(knapsack_fitness(indi3) == 19);
-    assert(knapsack_fitness(indi4) == 37);
-    assert(knapsack_fitness(indi5) == 61);
-    assert(knapsack_fitness(indi6) == 50);
-    assert(knapsack_fitness(indi7) == 0);
+    assert(knapsack_individualFitness(indi1) == 0);
+    assert(knapsack_individualFitness(indi2) == 0);
+    assert(knapsack_individualFitness(indi3) == 19);
+    assert(knapsack_individualFitness(indi4) == 37);
+    assert(knapsack_individualFitness(indi5) == 61);
+    assert(knapsack_individualFitness(indi6) == 50);
+    assert(knapsack_individualFitness(indi7) == 0);
 // ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------
     // Tests of the optimal solution function
 // ----------------------------------------------------------------------------
     assert(knapsack_calcOptimum() == 98);
-    assert(knapsack_calcOptimum() == knapsack_fitness(indi8));
+    assert(knapsack_calcOptimum() == knapsack_individualFitness(indi8));
 // ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------

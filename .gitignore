@@ -54,3 +54,6 @@ dkms.conf
 # Mac OS
 .DS_Store
 bin
+
+# VS Code
+*.vscode
