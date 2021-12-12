@@ -16,8 +16,15 @@ typedef struct Population_ {
     Individual_t *array;
 } *Population_t;
 
+// Sub-population that was selected in the Selection step
+typedef struct SelectedIndividuals_ {
+    size_t size;
+    Individual_t *array;
+} *SelectedIndividuals_t;
+
 // Freeing all the allocated memory.
 void freePopulation(Population_t population);
+void freeSelectedIndividuals(SelectedIndividuals_t selectedIndividuals);
 
 // Pretty printing functions
 void printIndividual(Individual_t individual, size_t individualSize);

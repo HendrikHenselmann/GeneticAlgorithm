@@ -1,7 +1,6 @@
 // Copyright [2021] <Nicola Distl, Hendrik Henselmann>
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
 #include <assert.h>
 
@@ -11,8 +10,8 @@ int main() {
 // ----------------------------------------------------------------------------
     // Re-Defining Macro for tests
 // ----------------------------------------------------------------------------
-    //#undef NUM_ITEMS
-    //#define NUM_ITEMS 10
+    #undef NUM_ITEMS
+    #define NUM_ITEMS 10
 // ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------

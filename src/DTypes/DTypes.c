@@ -16,6 +16,17 @@ void freePopulation(Population_t population) {
     free(population);
 }
 
+void freeSelectedIndividuals(SelectedIndividuals_t selectedIndividuals) {
+    // Free the memory of Individuals.
+    for (size_t indiIndex = 0; indiIndex < selectedIndividuals->size; indiIndex++) {
+        free(selectedIndividuals->array[indiIndex]);
+    }
+    // Free the array of Individuals.
+    free(selectedIndividuals->array);
+    // Free the struct.
+    free(selectedIndividuals);
+}
+
 void printIndividual(Individual_t individual, size_t individualSize) {
     printf("\nIndividual:\n===========\n");
     for (size_t i = 0; i < individualSize; i++) {
