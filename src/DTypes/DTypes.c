@@ -4,7 +4,7 @@
 
 #include "../../include/DTypes.h"
 
-SelectedIndividuals_t createSelectedIndividuals(size_t numPairs) {
+SelectedIndividuals_t initSelectedIndividuals(size_t numPairs) {
 
     // Allocate memory for the actual array
     size_t *individualArray = malloc(2*numPairs*sizeof(size_t));
@@ -25,7 +25,7 @@ SelectedIndividuals_t createSelectedIndividuals(size_t numPairs) {
     return selectedIndividuals;
 }
 
-FitnessScores_t createFitnessScores(size_t size) {
+FitnessScores_t initFitnessScores(size_t size) {
     
     // Allocate memory for the actual array
     float *fitnessArray = malloc(size*sizeof(float));

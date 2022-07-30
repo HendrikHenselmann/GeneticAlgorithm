@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 
+#include "../../include/Knapsack.h" // Delete when environment is variable
 #include "../../include/PopulationInitialization.h"
 
 #include "../../include/GeneticAlgorithm.h"
@@ -13,11 +14,15 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     Population_t population =
         initializePopulation(params.populationSize, params.individualSize, 0.5);
     if (!population) {
-        return population;
+        return NULL;
     }
 
-    // Initializing the array of fitness values
-    float *fitnessScores = malloc(params.populationSize * sizeof(float));
+    // Initializing a struct that stores calculated fitness scores
+    FitnessScores_t fitnessScores =
+        initFitnessScores(population->populationSize);
+
+    // Determine initial fitness scores
+    fitnessScores = knapsack_populationFitness(population, fitnessScores);
     if (!fitnessScores) {
         free(population);
         return NULL;
@@ -28,8 +33,6 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         generation < params.numEvolutions;
         generation++) {
 
-        // EVALUTATION: Determine fitness scores 
-
         // SELECTION: Select individuals for reproduction (crossover)
 
         // CROSSOVER: Create childs
@@ -38,10 +41,12 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
 
         // ELITISM: The best individuals survive
 
+        // EVALUTATION: Determine fitness scores of the new population
+        fitnessScores = knapsack_populationFitness(population, fitnessScores);
     }
 
     // Free allocated memory (Fitness array, ...)
-    free(fitnessScores);
+    freeFitnessScores(fitnessScores);
 
     // Returns final population
     return population;

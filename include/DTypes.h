@@ -30,9 +30,9 @@ typedef struct FitnessScores_ {
     float *array;
 } *FitnessScores_t;
 
-// Initialize structs. Population initialization is a seperate component
-SelectedIndividuals_t createSelectedIndividuals(size_t numPairs);
-FitnessScores_t createFitnessScores(size_t size);
+// Initialize structs. Population initialization is a seperate component.
+SelectedIndividuals_t initSelectedIndividuals(size_t numPairs);
+FitnessScores_t initFitnessScores(size_t size);
 
 // Freeing all the allocated memory.
 void freePopulation(Population_t population);

@@ -37,7 +37,6 @@ int accumulatedIndividualWeight(Individual_t individual) {
     return acc;
 }
 
-
 // ----------------------------------------------------------------------------
 // Calculate the fitness function of an individual according to the problem
 float knapsack_individualFitness(Individual_t individual) {
@@ -59,12 +58,9 @@ float knapsack_individualFitness(Individual_t individual) {
 }
 
 // Calculate the fitness function of the whole population according to the
-// problem Writing the fitness into the fitnessArray
-FitnessScores_t knapsack_populationFitness(Population_t population) {
-    
-    // Allocate memory for the FitnessScores_t output struct
-    FitnessScores_t fitnessScores =
-        createFitnessScores(population->populationSize);
+// problem. Writing the fitness into the fitnessScores struct.
+FitnessScores_t knapsack_populationFitness(Population_t population,
+    FitnessScores_t fitnessScores) {
 
     // Calculate the fitness values
     for (size_t individualIndex = 0;
