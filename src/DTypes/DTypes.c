@@ -19,7 +19,7 @@ SelectedIndividuals_t createSelectedIndividuals(size_t numPairs) {
 
     // Fill the struct
     selectedIndividuals->size = 2*numPairs;
-    selectedIndividuals->array = selectedIndividuals;
+    selectedIndividuals->array = individualArray;
 
     return selectedIndividuals;
 }
