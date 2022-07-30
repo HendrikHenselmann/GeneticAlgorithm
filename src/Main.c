@@ -6,7 +6,9 @@
 #include <string.h>
 
 #include "../include/Knapsack.h"
-#include "../include/Mutation.h"
+#include "../include/Selection.h"
+// #include "../include/Mutation.h"
+#include "../include/PopulationInitialization.h"
 
 int main() {
     
@@ -14,21 +16,26 @@ int main() {
     // It is very important that this is the only place where srand is called!
     srand(time(NULL));
 
-    // Test Individuals
-    Individual_t indi1 = calloc(NUM_ITEMS, sizeof(bool));
-    Individual_t indi2 = malloc(NUM_ITEMS * sizeof(bool));
-    memset (indi2, true, sizeof(bool) * NUM_ITEMS);
-
     // Display Problem
     knapsack_displayProblem();
 
-    // Display Individual
-    knapsack_displayIndividual(indi1);
-    knapsack_displayIndividual(indi2);
+    // Initialize Population
+    Population_t population = initializePopulation(10, NUM_ITEMS, 0.2);
+    if (!population) return EXIT_FAILURE;
+
+    // Select individuals for the crossover step
+    size_t numSelectionPairs = 2;
+    SelectedIndividuals_t selection = randomSelection(population, numSelectionPairs);
+    if (!selection) return EXIT_FAILURE;
+
+    // Display selected individuals
+    for (size_t i = 0; i < 2*numSelectionPairs; i++) {
+        knapsack_displayIndividual(selection->array[i]);
+    }
 
     // Free all memory allocations
-    free(indi1);
-    free(indi2);
+    freeSelectedIndividuals(selection);
+    freePopulation(population);
 
     return 0;
 }
