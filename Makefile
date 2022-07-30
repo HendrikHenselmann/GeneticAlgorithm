@@ -24,7 +24,7 @@ TESTTARGETS := $(addprefix bin/, $(basename $(notdir $(TESTSOURCES))))
 .PHONY: all compileAll compile exec compileTests test clean
 
 # Build, test and clean in one command
-all: compile exe clean
+all: compile exec clean
 
 # Defining the compile command
 compileAll: compile compileTests
