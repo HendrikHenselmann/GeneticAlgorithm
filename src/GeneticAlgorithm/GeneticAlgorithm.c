@@ -20,9 +20,21 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     // Initializing a struct that stores calculated fitness scores
     FitnessScores_t fitnessScores =
         initFitnessScores(population->populationSize);
+    
+    // Initializing a struct that stores the indices of selected individuals
+    size_t numSelectedPairs =
+    ((1-params.elitismRatio) * population->populationSize) / 2; // TODO
+    SelectedIndividuals_t selectedIndis =
+        initSelectedIndividuals(numSelectedPairs);
+
+    // Add population and fitnessScores as parameters for the Selection and
+    // Crossover functions
+    params.selectionParams.population = population;
+    params.crossoverParams.population = population;
+    params.selectionParams.fitnessScores = fitnessScores;
 
     // Determine initial fitness scores
-    fitnessScores = knapsack_populationFitness(population, fitnessScores);
+    fitnessScores = params.populationFitnessFunc(population, fitnessScores);
     if (!fitnessScores) {
         free(population);
         return NULL;
@@ -34,20 +46,22 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         generation++) {
 
         // SELECTION: Select individuals for reproduction (/"crossover")
-        params.selectionFunc();
+        selectedIndis = params.selectionFunc(params.selectionParams);
 
         // CROSSOVER: Create childs
+        population = params.crossoverFunc(params.crossoverParams);
 
         // MUTATION: Randomly mutate genes of childs
 
         // ELITISM: The best individuals survive
 
         // EVALUTATION: Determine fitness scores of the new population
-        fitnessScores = knapsack_populationFitness(population, fitnessScores);
+        fitnessScores = params.populationFitnessFunc(population, fitnessScores);
     }
 
     // Free allocated memory (Fitness array, ...)
     freeFitnessScores(fitnessScores);
+    freeSelectedIndividuals(selectedIndis);
 
     // Returns final population
     return population;

@@ -23,21 +23,28 @@ int main() {
     Population_t population = initializePopulation(10, NUM_ITEMS, 0.2);
     if (!population) return EXIT_FAILURE;
 
-    // Select individuals for the crossover step
+    // Initialize the struct that stores selected individuals
     size_t numSelectionPairs = 2;
-    SelectionParams_t params =
-        initRandomSelectionParams(population, numSelectionPairs);
-    SelectedIndividuals_t selection =
-        randomSelection(params);
-    if (!selection) return EXIT_FAILURE;
+    SelectedIndividuals_t selectedIndis =
+        initSelectedIndividuals(numSelectionPairs);
+    if (!selectedIndis) {
+        freePopulation(population);
+        return EXIT_FAILURE;
+    }
+
+    // Actually select individuals for the crossover step
+    SelectionParams_t params = initRandomSelectionParams(numSelectionPairs);
+    params.population = population;
+    params.selectedIndividuals = selectedIndis;
+    selectedIndis = randomSelection(params);
 
     // Display selected individuals
     for (size_t i = 0; i < 2*numSelectionPairs; i++) {
-        knapsack_displayIndividual(population->array[selection->array[i]]);
+        knapsack_displayIndividual(population->array[selectedIndis->array[i]]);
     }
 
     // Free all memory allocations
-    freeSelectedIndividuals(selection);
+    freeSelectedIndividuals(selectedIndis);
     freePopulation(population);
 
     return 0;

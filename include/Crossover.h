@@ -19,9 +19,10 @@
 
 // Defining the input type for every Crossover function
 typedef struct {
-    // The population from which individuals are crossed over
+    // The population from which individuals are crossed over.
+    // It will also be updated inplace by the function.
     Population_t population;
-    // The individuals that have been selected for crossover
+    // The individuals that have been selected for crossover.
     SelectedIndividuals_t selectedIndividuals;
 } CrossoverParams_t;
 

@@ -26,9 +26,10 @@ typedef struct GAParams_ {
     SelectedIndividuals_t (*selectionFunc) (SelectionParams_t params);
     // Crossover function
     CrossoverParams_t crossoverParams;
-    void (*crossoverFunc) (CrossoverParams_t params);
+    Population_t (*crossoverFunc) (CrossoverParams_t params);
     // Fitness function
-    FitnessScores_t (*populationFitnessFunc) (Population_t population);
+    FitnessScores_t (*populationFitnessFunc) (Population_t population,
+        FitnessScores_t fitnessScores);
 } GAParams_t;
 
 // Running the Genetic Algorithm based on the given parameters

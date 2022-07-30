@@ -27,6 +27,8 @@ typedef struct {
     FitnessScores_t fitnessScores;
     // The size of a tournament. For Tournament selection only.
     size_t tournamentSize;
+    // The already malloced struct which is used as return value
+    SelectedIndividuals_t selectedIndividuals;
 } SelectionParams_t;
 
 // -----------------------------------------------------------------------------

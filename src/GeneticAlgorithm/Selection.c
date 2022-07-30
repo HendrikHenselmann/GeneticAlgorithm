@@ -30,10 +30,6 @@ SelectionParams_t initTournamentSelectionParams(size_t numSelectedPairs,
 // Random Selection
 SelectedIndividuals_t randomSelection(SelectionParams_t params) {
 
-    // Allocate memory for the SelectedIndividuals_t output
-    SelectedIndividuals_t selectedIndividuals =
-        initSelectedIndividuals(params.numSelectedPairs);
-
     // Select one pair at every iteration
     for (size_t i = 0; i < params.numSelectedPairs; i++) {
 
@@ -46,12 +42,12 @@ SelectedIndividuals_t randomSelection(SelectionParams_t params) {
             second = rand() % params.population->populationSize;
 
         // Store them in the output array
-        selectedIndividuals->array[2*i] = first;
-        selectedIndividuals->array[2*i+1] = second;
+        params.selectedIndividuals->array[2*i] = first;
+        params.selectedIndividuals->array[2*i+1] = second;
 
     }
 
-    return selectedIndividuals;
+    return params.selectedIndividuals;
 }
 
 // Roulette Wheel Selection
