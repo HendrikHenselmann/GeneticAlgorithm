@@ -41,7 +41,8 @@ int main() {
 
     // float ratio = (float) counter/NUM_ITEMS;
 
-    // printf("Of %ld items there are %ld true values which is a ratio of %f", NUM_ITEMS, counter, ratio);
+    // printf("Of %ld items there are %ld true values which is a ratio of %f",
+    //    NUM_ITEMS, counter, ratio);
 
     // free(ind1);
 

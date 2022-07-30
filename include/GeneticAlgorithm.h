@@ -12,7 +12,8 @@ typedef struct GAParams_ {
     unsigned long numGenerations;
     float elitismRatio;
     float mutationProbability;
-    SelectedIndividuals_t (*crossoverFunction) (SelectedIndividuals_t selectedIndividuals);
+    SelectedIndividuals_t (*crossoverFunction) (
+        SelectedIndividuals_t selectedIndividuals);
     void (*populationFitnessFunction) (Population_t population);
 } GAParams_t;
 

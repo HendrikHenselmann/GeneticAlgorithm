@@ -23,7 +23,8 @@ Item_t itemList[NUM_ITEMS] = {
 };
 
 // Defining a seperation line
-char separator[] = "======================================================================";
+char separator[] = "===========================================================\
+===========";
 
 // Accumulation of individuals weight
 int accumulatedIndividualWeight(Individual_t individual) {
@@ -57,12 +58,13 @@ float knapsack_individualFitness(Individual_t individual) {
     return accValue;
 }
 
-// Calculate the fitness function of the whole population according to the problem
-// Writing the fitness into the fitnessArray
+// Calculate the fitness function of the whole population according to the
+// problem Writing the fitness into the fitnessArray
 FitnessScores_t knapsack_populationFitness(Population_t population) {
     
     // Allocate memory for the FitnessScores_t output struct
-    FitnessScores_t fitnessScores = createFitnessScores(population->populationSize);
+    FitnessScores_t fitnessScores =
+        createFitnessScores(population->populationSize);
 
     // Calculate the fitness values
     for (size_t individualIndex = 0;
@@ -85,8 +87,10 @@ void knapsack_displayProblem(void) {
     printf("\nThis is the knapsack problem");
     printf("\n%s", separator);
     printf("\nThere is a predefined set of items and the goal of this game\n"
-           "is to select the subset accumulating the greatest value. The accumulated\n"
-           "weight of these items is limited by the weight cap of the knapsack.");
+           "is to select the subset accumulating the greatest value. The accumu\
+lated\n"
+           "weight of these items is limited by the weight cap of the knapsack."
+           );
     printf("\n%s", separator);
 
     // Print the set of items
@@ -137,7 +141,9 @@ float knapsack_calcOptimum(void) {
     float iterationFitness = 0.0f;
 
     // Iterate through all possible individuals and check their values
-    for (size_t iterInd = 0; iterInd < round(pow(2.0, (float) NUM_ITEMS)); iterInd++) {
+    for (size_t iterInd = 0;
+        iterInd < round(pow(2.0, (float) NUM_ITEMS));
+        iterInd++) {
 
         // Set the individual to the binary encoding of the number iterInd
         for (size_t i = 0; i < NUM_ITEMS; i++) {
@@ -155,7 +161,8 @@ float knapsack_calcOptimum(void) {
         // Calculate the individual fitness
         iterationFitness = knapsack_individualFitness(iterationIndi);
 
-        // Overwrite the fitness if current individuals fitness exceeds the previous one
+        // Overwrite the fitness if current individuals fitness exceeds the
+        // previous one
         if (iterationFitness > solutionFitness) {
             // Overwrite fitness
             solutionFitness = iterationFitness;

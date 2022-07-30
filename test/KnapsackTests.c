@@ -83,7 +83,8 @@ int main() {
     // Tests of the optimal solution function
 // ----------------------------------------------------------------------------
     assert(fAlmostEqual(knapsack_calcOptimum(), 98.0f));
-    assert(fAlmostEqual(knapsack_calcOptimum(), knapsack_individualFitness(indi8)));
+    assert(fAlmostEqual(
+        knapsack_calcOptimum(), knapsack_individualFitness(indi8)));
 // ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------

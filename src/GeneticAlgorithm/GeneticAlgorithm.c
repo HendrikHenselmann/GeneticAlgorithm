@@ -10,7 +10,8 @@
 Population_t runGeneticAlgorithm(GAParams_t params) {
 
     // Initializing population
-    Population_t population = initializePopulation(params.populationSize, params.individualSize, 0.5);
+    Population_t population =
+        initializePopulation(params.populationSize, params.individualSize, 0.5);
     if (!population) {
         return population;
     }
@@ -23,7 +24,9 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     }
 
     // Main loop of generations
-    for (unsigned long generation = 0; generation < params.numGenerations; generation++) {
+    for (unsigned long generation = 0;
+        generation < params.numGenerations;
+        generation++) {
 
         // EVALUTATION: Determine fitness scores 
 

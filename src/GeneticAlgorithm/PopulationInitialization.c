@@ -28,7 +28,7 @@ Individual_t initializeIndividual(size_t individualSize,
 // Returning NullPointer if some error occures, else the initialized random
 // population
 Population_t initializePopulation(size_t populationSize, size_t individualSize,
-                                  float activeGeneProba) {
+    float activeGeneProba) {
 
     // Initializing memory for the population struct
     Population_t population = malloc(sizeof(struct Population_));
@@ -37,7 +37,8 @@ Population_t initializePopulation(size_t populationSize, size_t individualSize,
     }
 
     // Initializing the array of Individuals
-    Individual_t *arrayOfIndividuals = malloc(sizeof(Individual_t) * populationSize);
+    Individual_t *arrayOfIndividuals =
+        malloc(sizeof(Individual_t) * populationSize);
     if (!arrayOfIndividuals) {
         free(population);
         return NULL;

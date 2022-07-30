@@ -11,7 +11,8 @@ SelectedIndividuals_t createSelectedIndividuals(size_t numPairs) {
     if (!individualArray) return NULL;
 
     // Allocate memory for the struct
-    SelectedIndividuals_t selectedIndividuals = malloc(sizeof(struct SelectedIndividuals_));
+    SelectedIndividuals_t selectedIndividuals =
+        malloc(sizeof(struct SelectedIndividuals_));
     if (!selectedIndividuals) {
         free(individualArray);
         return NULL;
@@ -47,7 +48,9 @@ FitnessScores_t createFitnessScores(size_t size) {
 // Freeing all the allocated memory.
 void freePopulation(Population_t population) {
     // Free the memory of Individuals.
-    for (size_t indiIndex = 0; indiIndex < population->populationSize; indiIndex++) {
+    for (size_t indiIndex = 0;
+        indiIndex < population->populationSize;
+        indiIndex++) {
         free(population->array[indiIndex]);
     }
     // Free the array of Individuals.
@@ -79,14 +82,23 @@ void printIndividual(Individual_t individual, size_t individualSize) {
 }
 
 void printPopulation(Population_t population) {
-    char separator[] = "======================================================================";
+
+    char separator[] = "=======================================================\
+===============";
+
     printf("\nPopulation:\n");
     printf("%s\n", separator);
-    for (size_t indiIndex = 0; indiIndex < population->populationSize; indiIndex++) {
+
+    for (size_t indiIndex = 0;
+        indiIndex < population->populationSize;
+        indiIndex++) {
+
         for (size_t i = 0; i < population->individualSize; i++) {
         printf("%d", population->array[indiIndex][i]);
         }
         printf("\n");
+
     }
+
     printf("%s\n\n", separator);
 }

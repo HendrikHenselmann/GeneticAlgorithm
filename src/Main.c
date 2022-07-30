@@ -25,7 +25,8 @@ int main() {
 
     // Select individuals for the crossover step
     size_t numSelectionPairs = 2;
-    SelectedIndividuals_t selection = randomSelection(population, numSelectionPairs);
+    SelectedIndividuals_t selection =
+        randomSelection(population, numSelectionPairs);
     if (!selection) return EXIT_FAILURE;
 
     // Display selected individuals
