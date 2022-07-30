@@ -15,7 +15,7 @@ int main() {
     // Set random seed
     srand(128);
 
-    Population_t pop1 = initializePopulation(2, NUM_ITEMS);
+    Population_t pop1 = initializePopulation(2, NUM_ITEMS, 0.5);
     if (!pop1) {return -1;};
 
     printPopulation(pop1);
