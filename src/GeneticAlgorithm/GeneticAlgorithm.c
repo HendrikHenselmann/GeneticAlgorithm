@@ -10,7 +10,7 @@
 Population_t runGeneticAlgorithm(GAParams_t params) {
 
     // Initializing population
-    Population_t population = initializePopulation(params.populationSize, params.individualSize);
+    Population_t population = initializePopulation(params.populationSize, params.individualSize, 0.5);
     if (!population) {
         return population;
     }

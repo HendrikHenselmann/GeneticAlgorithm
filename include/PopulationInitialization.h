@@ -6,7 +6,10 @@
 #include "./DTypes.h"
 
 // Initializing a random population
-// Returning NullPointer if some error occures, else the initialized random population
-Population_t initializePopulation(size_t populationSize, size_t individualSize);
+// activeGeneProba is the probability that an individuals gene is 1
+// Returning NullPointer if some error occures, else the initialized random
+// population
+Population_t initializePopulation(
+    size_t populationSize, size_t individualSize, float activeGeneProba);
 
 #endif  // POPULATIONINITIALIZATION_H_
