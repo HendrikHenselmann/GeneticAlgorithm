@@ -62,15 +62,7 @@ float knapsack_individualFitness(Individual_t individual) {
 FitnessScores_t knapsack_populationFitness(Population_t population) {
     
     // Allocate memory for the FitnessScores_t output struct
-    float *fitnessArray = malloc(population->populationSize*sizeof(float));
-    if (!fitnessArray) return NULL;
-    FitnessScores_t fitnessScores = malloc(sizeof(FitnessScores_t));
-    if (!fitnessScores) {
-        free(fitnessArray);
-        return NULL;
-    }
-    fitnessScores->size = population->populationSize;
-    fitnessScores->array = fitnessArray;
+    FitnessScores_t fitnessScores = createFitnessScores(population->populationSize);
 
     // Calculate the fitness values
     for (size_t individualIndex = 0;

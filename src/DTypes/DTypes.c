@@ -4,6 +4,46 @@
 
 #include "../../include/DTypes.h"
 
+SelectedIndividuals_t createSelectedIndividuals(size_t numPairs) {
+
+    // Allocate memory for the actual array
+    Individual_t *individualArray = malloc(2*numPairs*sizeof(Individual_t));
+    if (!individualArray) return NULL;
+
+    // Allocate memory for the struct
+    SelectedIndividuals_t selectedIndividuals = malloc(sizeof(SelectedIndividuals_t));
+    if (!selectedIndividuals) {
+        free(individualArray);
+        return NULL;
+    }
+
+    // Fill the struct
+    selectedIndividuals->size = 2*numPairs;
+    selectedIndividuals->array = selectedIndividuals;
+
+    return selectedIndividuals;
+}
+
+FitnessScores_t createFitnessScores(size_t size) {
+    
+    // Allocate memory for the actual array
+    float *fitnessArray = malloc(size*sizeof(float));
+    if (!fitnessArray) return NULL;
+
+    // Allocate memory for the struct
+    FitnessScores_t fitnessScores = malloc(sizeof(FitnessScores_t));
+    if (!fitnessScores) {
+        free(fitnessArray);
+        return NULL;
+    }
+
+    // Fill the struct
+    fitnessScores->size = size;
+    fitnessScores->array = fitnessArray;
+
+    return fitnessScores;
+}
+
 // Freeing all the allocated memory.
 void freePopulation(Population_t population) {
     // Free the memory of Individuals.
