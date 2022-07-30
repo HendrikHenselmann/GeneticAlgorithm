@@ -25,13 +25,13 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     // Main loop of generations
     for (unsigned long generation = 0; generation < params.numGenerations; generation++) {
 
-        // EVALUTATION: Determin fitness scores 
+        // EVALUTATION: Determine fitness scores 
 
         // SELECTION: Select individuals for reproduction (crossover)
 
         // CROSSOVER: Create childs
 
-        // MUTATION: Randomly mutate genes
+        // MUTATION: Randomly mutate genes of childs
 
         // ELITISM: The best individuals survive
 
