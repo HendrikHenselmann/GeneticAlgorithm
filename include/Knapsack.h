@@ -8,7 +8,7 @@
 // ----------------------------------------------------------------------------
 // External headers
 #include <stdlib.h>
-// Internal headers
+// Project headers
 #include "./DTypes.h"
 // ----------------------------------------------------------------------------
 
@@ -40,14 +40,14 @@ typedef struct {
 // Calculate the fitness function of an individual according to the problem
 float knapsack_individualFitness(Individual_t individual);
 // Calculate the fitness function of the whole population according to the problem
-// Writing the fitness into the fitnessArray
-void knapsack_populationFitness(Population_t population, float *fitnessArray);
+FitnessScores_t knapsack_populationFitness(Population_t population);
 // Display the problem
 void knapsack_displayProblem(void);
 // Display an Individual interpreted according to the problem
 void knapsack_displayIndividual(Individual_t individual);
 // Calculate the optimal solution
-int knapsack_calcOptimum(void);
+// Returning INT_MIN to indicate failure of malloc
+float knapsack_calcOptimum(void);
 // ----------------------------------------------------------------------------
 
 #endif  // KNAPSACK_H_

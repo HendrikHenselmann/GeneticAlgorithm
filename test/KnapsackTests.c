@@ -1,10 +1,17 @@
 // Copyright [2021] <Nicola Distl, Hendrik Henselmann>
 
+#include "../include/Knapsack.h"
+
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <float.h>
 
-#include "../include/Knapsack.h"
+// Definition of float equality
+bool fAlmostEqual(float f1, float f2) {
+    if (f1 - FLT_EPSILON > f2 || f1 + FLT_EPSILON < f2) return false;
+    return true;
+}
 
 int main() {
 // ----------------------------------------------------------------------------
@@ -75,8 +82,8 @@ int main() {
 // ----------------------------------------------------------------------------
     // Tests of the optimal solution function
 // ----------------------------------------------------------------------------
-    assert(knapsack_calcOptimum() == 98);
-    assert(knapsack_calcOptimum() == knapsack_individualFitness(indi8));
+    assert(fAlmostEqual(knapsack_calcOptimum(), 98.0f));
+    assert(fAlmostEqual(knapsack_calcOptimum(), knapsack_individualFitness(indi8)));
 // ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------

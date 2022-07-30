@@ -1,7 +1,8 @@
+#include "../../include/Knapsack.h"
+
 #include <stdio.h>
 #include <math.h>
-
-#include "../../include/Knapsack.h"
+#include "limits.h"
 
 // ----------------------------------------------------------------------------
 // Not exportet values and functions
@@ -58,12 +59,31 @@ float knapsack_individualFitness(Individual_t individual) {
 
 // Calculate the fitness function of the whole population according to the problem
 // Writing the fitness into the fitnessArray
-void knapsack_populationFitness(Population_t population, float *fitnessArray) {
+FitnessScores_t knapsack_populationFitness(Population_t population) {
     
-    for (size_t individualIndex = 0; individualIndex < population->populationSize; individualIndex++) {
-        fitnessArray[individualIndex] = knapsack_individualFitness(population->array[individualIndex]);
+    // Allocate memory for the FitnessScores_t output struct
+    float *fitnessArray = malloc(population->populationSize*sizeof(float));
+    if (!fitnessArray) return NULL;
+    FitnessScores_t fitnessScores = malloc(sizeof(FitnessScores_t));
+    if (!fitnessScores) {
+        free(fitnessArray);
+        return NULL;
+    }
+    fitnessScores->size = population->populationSize;
+    fitnessScores->array = fitnessArray;
+
+    // Calculate the fitness values
+    for (size_t individualIndex = 0;
+         individualIndex < population->populationSize;
+         individualIndex++) {
+
+        float individualScore = knapsack_individualFitness(
+                                    population->array[individualIndex]);
+        fitnessScores->array[individualIndex] = individualScore;
+    
     }
 
+    return fitnessScores;
 }
 
 // Display the problem
@@ -94,11 +114,11 @@ void knapsack_displayIndividual(Individual_t individual) {
     printf("\n%s", separator);
 
     // Print the genes / items
-    printf("\n      weight | value");
+    printf("\n      weight | value");
     printf("\n      -------|------");
     for (size_t i = 0; i < NUM_ITEMS; i++) {
         if (individual[i]){
-            printf("\n\t- %02d | %02d", itemList[i].weight, itemList[i].value);
+            printf("\n\t- %02d | %02d", itemList[i].weight, itemList[i].value);
         }
     }
 
@@ -113,14 +133,16 @@ void knapsack_displayIndividual(Individual_t individual) {
 }
 
 // Calculate the optimal solution fitness
-int knapsack_calcOptimum(void) {
+// Returning INT_MIN to indicate failure of malloc
+float knapsack_calcOptimum(void) {
 
     // Initialize an iterating individual
     Individual_t iterationIndi = malloc(NUM_ITEMS * sizeof(bool));
+    if (!iterationIndi) return INT_MIN;
 
     // Initialize a container for the solution candidates value
-    int solutionFitness = 0;
-    int iterationFitness = 0;
+    float solutionFitness = 0.0f;
+    float iterationFitness = 0.0f;
 
     // Iterate through all possible individuals and check their values
     for (size_t iterInd = 0; iterInd < round(pow(2.0, (float) NUM_ITEMS)); iterInd++) {
@@ -135,8 +157,7 @@ int knapsack_calcOptimum(void) {
             } else {
                 iterationIndi[i] = false;
             }
-            
-
+    
         }
 
         // Calculate the individual fitness
