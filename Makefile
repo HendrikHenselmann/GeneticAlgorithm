@@ -1,5 +1,5 @@
 CC := clang   # --analyze
-CFLAGS := -std=c11 -g # -pedantic -Wall
+CFLAGS := -std=c11 -pedantic -Wall # -g
 LIB := -lm
 INC := -I include
 
