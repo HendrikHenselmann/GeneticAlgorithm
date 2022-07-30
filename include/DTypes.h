@@ -16,11 +16,12 @@ typedef struct Population_ {
     Individual_t *array;
 } *Population_t;
 
-// Sub-population that is selected in the Selection step
-// 2 consecutive Individuals are chosen to be crossed over
+// Sub-population that is selected in the Selection step.
+// 2 consecutive Individuals are chosen to be crossed over.
+// The selected individuals are represented by their index in the population.
 typedef struct SelectedIndividuals_ {
     size_t size;
-    Individual_t *array;
+    size_t *array;
 } *SelectedIndividuals_t;
 
 // Array of fitness scores corresponding to a population

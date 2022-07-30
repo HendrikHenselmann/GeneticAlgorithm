@@ -25,7 +25,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
 
     // Main loop of generations
     for (unsigned long generation = 0;
-        generation < params.numGenerations;
+        generation < params.numEvolutions;
         generation++) {
 
         // EVALUTATION: Determine fitness scores 

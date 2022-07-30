@@ -25,13 +25,15 @@ int main() {
 
     // Select individuals for the crossover step
     size_t numSelectionPairs = 2;
+    SelectionParams_t params =
+        initRandomSelectionParams(population, numSelectionPairs);
     SelectedIndividuals_t selection =
-        randomSelection(population, numSelectionPairs);
+        randomSelection(params);
     if (!selection) return EXIT_FAILURE;
 
     // Display selected individuals
     for (size_t i = 0; i < 2*numSelectionPairs; i++) {
-        knapsack_displayIndividual(selection->array[i]);
+        knapsack_displayIndividual(population->array[selection->array[i]]);
     }
 
     // Free all memory allocations

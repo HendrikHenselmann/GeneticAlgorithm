@@ -7,7 +7,7 @@
 SelectedIndividuals_t createSelectedIndividuals(size_t numPairs) {
 
     // Allocate memory for the actual array
-    Individual_t *individualArray = malloc(2*numPairs*sizeof(Individual_t));
+    size_t *individualArray = malloc(2*numPairs*sizeof(size_t));
     if (!individualArray) return NULL;
 
     // Allocate memory for the struct

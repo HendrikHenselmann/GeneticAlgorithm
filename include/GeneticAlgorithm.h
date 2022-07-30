@@ -5,16 +5,28 @@
 
 #include "./DTypes.h"
 
+#include "./Selection.h"
+#include "./Crossover.h"
+
 // The parameters for the Genetic Algorithm Function
 typedef struct GAParams_ {
+    // Number of genes (bits) per individual
     size_t individualSize;
+    // Number of individuals forming the population
     size_t populationSize;
-    unsigned long numGenerations;
+    // Number of evolution steps
+    unsigned long numEvolutions;
+    // Ratio of top individuals surviving without modification (no mutation or
+    // crossover)
     float elitismRatio;
+    // Probability of a childs gene mutating (flipping)
     float mutationProbability;
-    SelectedIndividuals_t (*crossoverFunction) (
-        SelectedIndividuals_t selectedIndividuals);
-    void (*populationFitnessFunction) (Population_t population);
+    // Selection function
+    SelectedIndividuals_t (*selectionFunc) (SelectionParams_t params);
+    // Crossover function
+    void (*crossoverFunc) (CrossoverParams_t params);
+    // Fitness function
+    FitnessScores_t (*populationFitnessFunc) (Population_t population);
 } GAParams_t;
 
 // Running the Genetic Algorithm based on the given parameters
