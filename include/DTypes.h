@@ -17,14 +17,22 @@ typedef struct Population_ {
 } *Population_t;
 
 // Sub-population that is selected in the Selection step
+// 2 consecutive Individuals are chosen to be crossed over
 typedef struct SelectedIndividuals_ {
     size_t size;
     Individual_t *array;
 } *SelectedIndividuals_t;
 
+// Array of fitness scores corresponding to a population
+typedef struct FitnessScores_ {
+    size_t size;
+    float *array;
+} *FitnessScores_t;
+
 // Freeing all the allocated memory.
 void freePopulation(Population_t population);
 void freeSelectedIndividuals(SelectedIndividuals_t selectedIndividuals);
+void freeFitnessScores(FitnessScores_t fitnessScores);
 
 // Pretty printing functions
 void printIndividual(Individual_t individual, size_t individualSize);

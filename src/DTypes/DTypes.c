@@ -27,6 +27,13 @@ void freeSelectedIndividuals(SelectedIndividuals_t selectedIndividuals) {
     free(selectedIndividuals);
 }
 
+void freeFitnessScores(FitnessScores_t fitnessScores) {
+    // Free memory of the array containing fitness scores.
+    free(fitnessScores->array);
+    // Free the struct.
+    free(fitnessScores);
+}
+
 void printIndividual(Individual_t individual, size_t individualSize) {
     printf("\nIndividual:\n===========\n");
     for (size_t i = 0; i < individualSize; i++) {
