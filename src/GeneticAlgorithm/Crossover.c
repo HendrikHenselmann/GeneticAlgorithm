@@ -2,32 +2,22 @@
 
 #include "../../include/Crossover.h"
 
-CrossoverParams_t initOnePointCrossoverParams(Population_t population, 
-    SelectedIndividuals_t selectedIndividuals) {
+CrossoverParams_t initOnePointCrossoverParams(void) {
 
-    return (CrossoverParams_t) {
-        .population = population,
-        .selectedIndividuals = selectedIndividuals
-    };
+    return (CrossoverParams_t) {};
 }
 
-CrossoverParams_t initTwoPointCrossoverParams(Population_t population, 
-    SelectedIndividuals_t selectedIndividuals) {
+CrossoverParams_t initTwoPointCrossoverParams(void) {
     
-    return (CrossoverParams_t) {
-        .population = population,
-        .selectedIndividuals = selectedIndividuals
-    };
+    return (CrossoverParams_t) {};
 }
 
-SelectedIndividuals_t onePointCrossover(
-    SelectedIndividuals_t selectedIndividuals) {
+SelectedIndividuals_t onePointCrossover(CrossoverParams_t params) {
     // TODO
     return NULL;
 }
 
-SelectedIndividuals_t twoPointCrossover(
-    SelectedIndividuals_t selectedIndividuals) {
+SelectedIndividuals_t twoPointCrossover(CrossoverParams_t params) {
     // TODO
     return NULL;
 }

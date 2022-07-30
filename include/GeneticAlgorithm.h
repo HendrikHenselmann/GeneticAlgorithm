@@ -22,8 +22,10 @@ typedef struct GAParams_ {
     // Probability of a childs gene mutating (flipping)
     float mutationProbability;
     // Selection function
+    SelectionParams_t selectionParams;
     SelectedIndividuals_t (*selectionFunc) (SelectionParams_t params);
     // Crossover function
+    CrossoverParams_t crossoverParams;
     void (*crossoverFunc) (CrossoverParams_t params);
     // Fitness function
     FitnessScores_t (*populationFitnessFunc) (Population_t population);

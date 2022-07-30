@@ -33,7 +33,8 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         generation < params.numEvolutions;
         generation++) {
 
-        // SELECTION: Select individuals for reproduction (crossover)
+        // SELECTION: Select individuals for reproduction (/"crossover")
+        params.selectionFunc();
 
         // CROSSOVER: Create childs
 

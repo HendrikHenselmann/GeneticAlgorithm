@@ -27,21 +27,18 @@ typedef struct {
 
 // -----------------------------------------------------------------------------
 // Initialization functions for the Crossover param struct
+// population and selectedIndividuals don't have to be set with those functions
 // -----------------------------------------------------------------------------
 
-CrossoverParams_t initOnePointCrossoverParams(Population_t population, 
-    SelectedIndividuals_t selectedIndividuals);
-CrossoverParams_t initTwoPointCrossoverParams(Population_t population, 
-    SelectedIndividuals_t selectedIndividuals);
+CrossoverParams_t initOnePointCrossoverParams(void);
+CrossoverParams_t initTwoPointCrossoverParams(void);
 
 // -----------------------------------------------------------------------------
 // Different Crossover functions
 // -----------------------------------------------------------------------------
 
-SelectedIndividuals_t onePointCrossover(
-    SelectedIndividuals_t selectedIndividuals);
-SelectedIndividuals_t twoPointCrossover(
-    SelectedIndividuals_t selectedIndividuals);
+SelectedIndividuals_t onePointCrossover(CrossoverParams_t params);
+SelectedIndividuals_t twoPointCrossover(CrossoverParams_t params);
 
 // -----------------------------------------------------------------------------
 

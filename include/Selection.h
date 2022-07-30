@@ -31,16 +31,14 @@ typedef struct {
 
 // -----------------------------------------------------------------------------
 // Initialization functions for the Selection param struct
+// population and fitnessScores don't have to be set with those functions
 // -----------------------------------------------------------------------------
 
-SelectionParams_t initRandomSelectionParams(Population_t population,
-    size_t numSelectedPairs);
+SelectionParams_t initRandomSelectionParams(size_t numSelectedPairs);
 
-SelectionParams_t initRouletteSelectionParams(Population_t population,
-    size_t numSelectedPairs, FitnessScores_t fitnessScores);
+SelectionParams_t initRouletteSelectionParams(size_t numSelectedPairs);
 
-SelectionParams_t initTournamentSelectionParams(Population_t population,
-    size_t numSelectedPairs, FitnessScores_t fitnessScores,
+SelectionParams_t initTournamentSelectionParams(size_t numSelectedPairs,
     size_t tournamentSize);
 
 // -----------------------------------------------------------------------------

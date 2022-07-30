@@ -4,33 +4,25 @@
 
 #include <stdlib.h>
 
-SelectionParams_t initRandomSelectionParams(Population_t population,
-    size_t numSelectedPairs) {
+SelectionParams_t initRandomSelectionParams(size_t numSelectedPairs) {
 
     return (SelectionParams_t) {
-        .population = population,
         .numSelectedPairs = numSelectedPairs
     };
 }
 
-SelectionParams_t initRouletteSelectionParams(Population_t population,
-    size_t numSelectedPairs, FitnessScores_t fitnessScores) {
+SelectionParams_t initRouletteSelectionParams(size_t numSelectedPairs) {
     
     return (SelectionParams_t) {
-        .population = population,
         .numSelectedPairs = numSelectedPairs,
-        .fitnessScores = fitnessScores
     };
 }
 
-SelectionParams_t initTournamentSelectionParams(Population_t population,
-    size_t numSelectedPairs, FitnessScores_t fitnessScores,
+SelectionParams_t initTournamentSelectionParams(size_t numSelectedPairs,
     size_t tournamentSize) {
     
     return (SelectionParams_t) {
-        .population = population,
         .numSelectedPairs = numSelectedPairs,
-        .fitnessScores = fitnessScores,
         .tournamentSize = tournamentSize
     };
 }
