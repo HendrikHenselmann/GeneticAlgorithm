@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include "../../include/Elitism.h"
 #include "../../include/PopulationInitialization.h"
 
 #include "../../include/GeneticAlgorithm.h"
@@ -98,6 +99,9 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     for (unsigned long generation = 0;
         generation < params.numEvolutions;
         generation++) {
+
+        // ELITISM: The fittest individuals survive unmodified.
+        population = applyElitism(population, numElitists, fitnessScores);
 
         // SELECTION: Select individuals for reproduction (/"crossover")
         selectedIndis = params.selectionFunc(params.selectionParams);
