@@ -7,7 +7,9 @@
 
 #include "../include/Knapsack.h"
 #include "../include/Selection.h"
+#include "../include/Crossover.h"
 // #include "../include/Mutation.h"
+#include "../include/GeneticAlgorithm.h"
 #include "../include/PopulationInitialization.h"
 
 int main() {
@@ -19,33 +21,24 @@ int main() {
     // Display Problem
     knapsack_displayProblem();
 
-    // Initialize Population
-    Population_t population = initializePopulation(10, NUM_ITEMS, 0.2);
-    if (!population) return EXIT_FAILURE;
+    // Define parameters of the genetic algorithm
+    SelectionParams_t selectionParams = initRandomSelectionParams();
+    CrossoverParams_t crossoverParams = initOnePointCrossoverParams();
 
-    // Initialize the struct that stores selected individuals
-    size_t numSelectionPairs = 2;
-    SelectedIndividuals_t selectedIndis =
-        initSelectedIndividuals(numSelectionPairs);
-    if (!selectedIndis) {
-        freePopulation(population);
-        return EXIT_FAILURE;
-    }
+    GAParams_t gaParams = initGAParams(NUM_ITEMS, 10, 1, 0.2, 0.05,
+        selectionParams, randomSelection, crossoverParams, onePointCrossover,
+        knapsack_populationFitness);
 
-    // Actually select individuals for the crossover step
-    SelectionParams_t params = initRandomSelectionParams(numSelectionPairs);
-    params.population = population;
-    params.selectedIndividuals = selectedIndis;
-    selectedIndis = randomSelection(params);
+    // Run the Genetic Algorithm
+    Population_t finalPopulation = runGeneticAlgorithm(gaParams);
 
     // Display selected individuals
-    for (size_t i = 0; i < 2*numSelectionPairs; i++) {
-        knapsack_displayIndividual(population->array[selectedIndis->array[i]]);
+    for (size_t i = 0; i < finalPopulation->populationSize; i++) {
+        knapsack_displayIndividual(finalPopulation->array[i]);
     }
 
     // Free all memory allocations
-    freeSelectedIndividuals(selectedIndis);
-    freePopulation(population);
+    freePopulation(finalPopulation);
 
     return 0;
 }

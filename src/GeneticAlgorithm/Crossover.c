@@ -12,12 +12,12 @@ CrossoverParams_t initTwoPointCrossoverParams(void) {
     return (CrossoverParams_t) {};
 }
 
-SelectedIndividuals_t onePointCrossover(CrossoverParams_t params) {
+Population_t onePointCrossover(CrossoverParams_t params) {
     // TODO
-    return NULL;
+    return params.population;
 }
 
-SelectedIndividuals_t twoPointCrossover(CrossoverParams_t params) {
+Population_t twoPointCrossover(CrossoverParams_t params) {
     // TODO
-    return NULL;
+    return params.population;
 }

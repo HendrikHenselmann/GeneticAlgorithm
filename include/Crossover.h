@@ -24,6 +24,9 @@ typedef struct {
     Population_t population;
     // The individuals that have been selected for crossover.
     SelectedIndividuals_t selectedIndividuals;
+    // Number of individuals that survive unmodified. This is needed to know
+    // where the new children are stored that are formed at the crossover step.
+    size_t numElitists;
 } CrossoverParams_t;
 
 // -----------------------------------------------------------------------------
@@ -38,8 +41,8 @@ CrossoverParams_t initTwoPointCrossoverParams(void);
 // Different Crossover functions
 // -----------------------------------------------------------------------------
 
-SelectedIndividuals_t onePointCrossover(CrossoverParams_t params);
-SelectedIndividuals_t twoPointCrossover(CrossoverParams_t params);
+Population_t onePointCrossover(CrossoverParams_t params);
+Population_t twoPointCrossover(CrossoverParams_t params);
 
 // -----------------------------------------------------------------------------
 
