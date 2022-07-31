@@ -25,7 +25,7 @@ int main() {
     SelectionParams_t selectionParams = initRandomSelectionParams();
     CrossoverParams_t crossoverParams = initOnePointCrossoverParams();
 
-    GAParams_t gaParams = initGAParams(NUM_ITEMS, 10, 1, 0.2, 0.05,
+    GAParams_t gaParams = initGAParams(NUM_ITEMS, 10, 0.2, 1, 0.2, 0.05,
         selectionParams, randomSelection, crossoverParams, onePointCrossover,
         knapsack_populationFitness);
 

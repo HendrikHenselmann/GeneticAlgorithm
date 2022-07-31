@@ -11,7 +11,8 @@
 
 // Assembling the Genetic Algorithm parameters
 GAParams_t initGAParams(size_t individualSize, size_t populationSize,
-    unsigned long numEvolutions, float elitismRatio, float mutationProbability,
+    float activeGeneRate, unsigned long numEvolutions, float elitismRatio,
+    float mutationProbability,
     SelectionParams_t selectionParams,
     void (*selectionFunc) (SelectionParams_t params),
     CrossoverParams_t crossoverParams,
@@ -23,6 +24,7 @@ GAParams_t initGAParams(size_t individualSize, size_t populationSize,
     return (GAParams_t) {
         .individualSize = individualSize,
         .populationSize = populationSize,
+        .activeGeneRate = activeGeneRate,
         .numEvolutions = numEvolutions,
         .elitismRatio = elitismRatio,
         .mutationProbability = mutationProbability,
@@ -53,7 +55,8 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
 
     // Initializing population
     Population_t population =
-        initializePopulation(params.populationSize, params.individualSize, 0.5);
+        initializePopulation(params.populationSize, params.individualSize,
+            params.activeGeneRate);
     if (!population) {
         return NULL;
     }
@@ -106,7 +109,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         generation++) {
 
         // ELITISM: The fittest individuals survive unmodified.
-        applyElitism(population, numElitists, fitnessScores);
+        applyElitism(population, fitnessScores);
 
         // SELECTION: Select individuals for reproduction (/"crossover")
         params.selectionFunc(params.selectionParams);

@@ -16,6 +16,8 @@ typedef struct GAParams_ {
     size_t individualSize;
     // Number of individuals forming the population
     size_t populationSize;
+    // Probability that an individuals gene is active ( / 1 / true )
+    float activeGeneRate;
     // Number of evolution steps
     unsigned long numEvolutions;
     // Ratio of top individuals surviving without modification (no mutation or
@@ -36,7 +38,8 @@ typedef struct GAParams_ {
 
 // Assembling the Genetic Algorithm parameters
 GAParams_t initGAParams(size_t individualSize, size_t populationSize,
-    unsigned long numEvolutions, float elitismRatio, float mutationProbability,
+    float activeGeneRate, unsigned long numEvolutions, float elitismRatio,
+    float mutationProbability,
     SelectionParams_t selectionParams,
     void (*selectionFunc) (SelectionParams_t params),
     CrossoverParams_t crossoverParams,
