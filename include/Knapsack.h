@@ -41,7 +41,7 @@ typedef struct {
 float knapsack_individualFitness(Individual_t individual);
 // Calculate the fitness function of the whole population according to the
 // problem. Writing the fitness into the fitnessScores struct.
-FitnessScores_t knapsack_populationFitness(Population_t population,
+void knapsack_populationFitness(Population_t population,
     FitnessScores_t fitnessScores);
 // Display the problem
 void knapsack_displayProblem(void);

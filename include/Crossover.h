@@ -41,8 +41,8 @@ CrossoverParams_t initTwoPointCrossoverParams(void);
 // Different Crossover functions
 // -----------------------------------------------------------------------------
 
-Population_t onePointCrossover(CrossoverParams_t params);
-Population_t twoPointCrossover(CrossoverParams_t params);
+void onePointCrossover(CrossoverParams_t params);
+void twoPointCrossover(CrossoverParams_t params);
 
 // -----------------------------------------------------------------------------
 

@@ -25,12 +25,12 @@ typedef struct GAParams_ {
     float mutationProbability;
     // Selection function
     SelectionParams_t selectionParams;
-    SelectedIndividuals_t (*selectionFunc) (SelectionParams_t params);
+    void (*selectionFunc) (SelectionParams_t params);
     // Crossover function
     CrossoverParams_t crossoverParams;
-    Population_t (*crossoverFunc) (CrossoverParams_t params);
+    void (*crossoverFunc) (CrossoverParams_t params);
     // Fitness function
-    FitnessScores_t (*populationFitnessFunc) (Population_t population,
+    void (*populationFitnessFunc) (Population_t population,
         FitnessScores_t fitnessScores);
 } GAParams_t;
 
@@ -38,10 +38,10 @@ typedef struct GAParams_ {
 GAParams_t initGAParams(size_t individualSize, size_t populationSize,
     unsigned long numEvolutions, float elitismRatio, float mutationProbability,
     SelectionParams_t selectionParams,
-    SelectedIndividuals_t (*selectionFunc) (SelectionParams_t params),
+    void (*selectionFunc) (SelectionParams_t params),
     CrossoverParams_t crossoverParams,
-    Population_t (*crossoverFunc) (CrossoverParams_t params),
-    FitnessScores_t (*populationFitnessFunc) (Population_t population,
+    void (*crossoverFunc) (CrossoverParams_t params),
+    void (*populationFitnessFunc) (Population_t population,
         FitnessScores_t fitnessScores)
 );
 

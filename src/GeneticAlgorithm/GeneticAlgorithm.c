@@ -13,10 +13,10 @@
 GAParams_t initGAParams(size_t individualSize, size_t populationSize,
     unsigned long numEvolutions, float elitismRatio, float mutationProbability,
     SelectionParams_t selectionParams,
-    SelectedIndividuals_t (*selectionFunc) (SelectionParams_t params),
+    void (*selectionFunc) (SelectionParams_t params),
     CrossoverParams_t crossoverParams,
-    Population_t (*crossoverFunc) (CrossoverParams_t params),
-    FitnessScores_t (*populationFitnessFunc) (Population_t population,
+    void (*crossoverFunc) (CrossoverParams_t params),
+    void (*populationFitnessFunc) (Population_t population,
         FitnessScores_t fitnessScores)
     ) {
 
@@ -61,10 +61,19 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     // Initializing a struct that stores calculated fitness scores
     FitnessScores_t fitnessScores =
         initFitnessScores(population->populationSize);
+    if (!fitnessScores) {
+        freePopulation(population);
+        return NULL;
+    }
 
     // Initializing a struct that stores the indices of selected individuals
     SelectedIndividuals_t selectedIndis =
         initSelectedIndividuals(numSelectedPairs);
+    if (!selectedIndis) {
+        freeFitnessScores(fitnessScores);
+        freePopulation(population);
+        return NULL;
+    }
 
 // -----------------------------------------------------------------------------
     // Setup of function parameters.
@@ -89,11 +98,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     printf("GA initialization successfull!\n");
 
     // Determine initial fitness scores
-    fitnessScores = params.populationFitnessFunc(population, fitnessScores);
-    if (!fitnessScores) {
-        free(population);
-        return NULL;
-    }
+    params.populationFitnessFunc(population, fitnessScores);
 
     // Main loop of generations
     for (unsigned long generation = 0;
@@ -101,23 +106,23 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         generation++) {
 
         // ELITISM: The fittest individuals survive unmodified.
-        population = applyElitism(population, numElitists, fitnessScores);
+        applyElitism(population, numElitists, fitnessScores);
 
         // SELECTION: Select individuals for reproduction (/"crossover")
-        selectedIndis = params.selectionFunc(params.selectionParams);
+        params.selectionFunc(params.selectionParams);
 
         // CROSSOVER: Create childs
-        population = params.crossoverFunc(params.crossoverParams);
+        params.crossoverFunc(params.crossoverParams);
 
         // MUTATION: Randomly mutate genes of childs
 
         // EVALUTATION: Determine fitness scores of the new population
-        fitnessScores = params.populationFitnessFunc(population, fitnessScores);
+        params.populationFitnessFunc(population, fitnessScores);
     }
 
     // Free allocated memory (Fitness array, ...)
-    freeFitnessScores(fitnessScores);
     freeSelectedIndividuals(selectedIndis);
+    freeFitnessScores(fitnessScores);
 
     // Returns final population
     return population;

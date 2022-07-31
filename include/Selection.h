@@ -48,16 +48,16 @@ SelectionParams_t initTournamentSelectionParams(size_t tournamentSize);
 // -----------------------------------------------------------------------------
 
 // Random Selection
-SelectedIndividuals_t randomSelection(SelectionParams_t params);
+void randomSelection(SelectionParams_t params);
 
 // Roulette Wheel Selection
-SelectedIndividuals_t rouletteSelection(SelectionParams_t params);
+void rouletteSelection(SelectionParams_t params);
 
 // Tournament Selection
 // numSelectedPairs is the amount of individuals that are selected overall
 // opposed to tournamentSize, which is the size of selected individuals
 // of every tournament
-SelectedIndividuals_t tournamentSelection(SelectionParams_t params);
+void tournamentSelection(SelectionParams_t params);
 
 // -----------------------------------------------------------------------------
 
