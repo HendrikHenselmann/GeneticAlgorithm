@@ -41,7 +41,13 @@ CrossoverParams_t initTwoPointCrossoverParams(void);
 // Different Crossover functions
 // -----------------------------------------------------------------------------
 
+// For every pair of parents that are crossed over to form 2 children, one point
+// is randomly chosen. All genes up to that point of parent 1 are then passed
+// to children 1. The remaining genes of parent 1 are passed on to children 2.
+// For parent 2 it's the other way around.
 void onePointCrossover(CrossoverParams_t params);
+
+// Same as One Point Crossover but with 2 randomly selected split points.
 void twoPointCrossover(CrossoverParams_t params);
 
 // -----------------------------------------------------------------------------

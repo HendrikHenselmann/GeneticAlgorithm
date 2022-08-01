@@ -1,8 +1,9 @@
 // Copyright [2022] <Nicola Distl, Hendrik Henselmann>
 
-#include "../../include/Selection.h"
-
 #include <stdlib.h>
+#include <string.h>
+
+#include "../../include/Selection.h"
 
 SelectionParams_t initRandomSelectionParams(void) {
 
@@ -35,10 +36,13 @@ void randomSelection(SelectionParams_t params) {
         while (first == second)
             second = rand() % params.population->populationSize;
 
-        // Store them in the output array
-        params.selectedIndividuals->array[2*i] = first;
-        params.selectedIndividuals->array[2*i+1] = second;
-
+        // Store them in the output array of selected individuals
+        memcpy(params.selectedIndividuals->array[2*i],
+            params.population->array[first],
+            params.population->individualSize * sizeof(bool));
+        memcpy(params.selectedIndividuals->array[2*i+1],
+            params.population->array[second],
+            params.population->individualSize * sizeof(bool));
     }
 }
 

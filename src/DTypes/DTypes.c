@@ -4,22 +4,39 @@
 
 #include "../../include/DTypes.h"
 
-SelectedIndividuals_t initSelectedIndividuals(size_t numPairs) {
+SelectedIndividuals_t initSelectedIndividuals(size_t numPairs,
+    size_t individualSize) {
 
     // Allocate memory for the actual array
-    size_t *individualArray = malloc(2*numPairs*sizeof(size_t));
+    Individual_t *individualArray = malloc(2*numPairs*sizeof(Individual_t));
     if (!individualArray) return NULL;
+
+    // Allocate the individuals in the array
+    for (size_t i = 0; i < 2*numPairs; i++) {
+        Individual_t individual = (bool *) malloc(individualSize*sizeof(bool));
+        if (!individual) {
+            for (size_t j = 0; j < i; j++) {
+                free(individualArray[j]);
+            }
+            free(individualArray);
+            return NULL;
+        }
+        individualArray[i] = individual;
+    }
 
     // Allocate memory for the struct
     SelectedIndividuals_t selectedIndividuals =
         malloc(sizeof(struct SelectedIndividuals_));
     if (!selectedIndividuals) {
+        for (size_t i = 0; i < 2*numPairs; i++) {
+            free(individualArray[i]);
+        }
         free(individualArray);
         return NULL;
     }
 
     // Fill the struct
-    selectedIndividuals->size = 2*numPairs;
+    selectedIndividuals->numPairs = numPairs;
     selectedIndividuals->array = individualArray;
 
     return selectedIndividuals;
@@ -60,6 +77,10 @@ void freePopulation(Population_t population) {
 }
 
 void freeSelectedIndividuals(SelectedIndividuals_t selectedIndividuals) {
+    // Free all the individuals
+    for (size_t i = 0; i < 2*selectedIndividuals->numPairs; i++) {
+        free(selectedIndividuals->array[i]);
+    }
     // Free the array of Individuals.
     free(selectedIndividuals->array);
     // Free the struct.

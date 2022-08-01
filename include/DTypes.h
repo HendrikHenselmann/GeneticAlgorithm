@@ -20,8 +20,8 @@ typedef struct Population_ {
 // 2 consecutive Individuals are chosen to be crossed over.
 // The selected individuals are represented by their index in the population.
 typedef struct SelectedIndividuals_ {
-    size_t size;
-    size_t *array;
+    size_t numPairs;
+    Individual_t *array;
 } *SelectedIndividuals_t;
 
 // Array of fitness scores corresponding to a population
@@ -31,7 +31,7 @@ typedef struct FitnessScores_ {
 } *FitnessScores_t;
 
 // Initialize structs. Population initialization is a seperate component.
-SelectedIndividuals_t initSelectedIndividuals(size_t numPairs);
+SelectedIndividuals_t initSelectedIndividuals(size_t numPairs, size_t individualSize);
 FitnessScores_t initFitnessScores(size_t size);
 
 // Freeing all the allocated memory.

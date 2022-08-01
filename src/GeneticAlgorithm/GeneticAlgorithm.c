@@ -71,7 +71,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
 
     // Initializing a struct that stores the indices of selected individuals
     SelectedIndividuals_t selectedIndis =
-        initSelectedIndividuals(numSelectedPairs);
+        initSelectedIndividuals(numSelectedPairs, params.individualSize);
     if (!selectedIndis) {
         freeFitnessScores(fitnessScores);
         freePopulation(population);
@@ -95,6 +95,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     // Setup crossover function parameters
     params.crossoverParams.numElitists = numElitists;
     params.crossoverParams.population = population;
+    params.crossoverParams.selectedIndividuals = selectedIndis;
 
 // -----------------------------------------------------------------------------
 
