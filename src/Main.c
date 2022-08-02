@@ -25,9 +25,19 @@ int main() {
     SelectionParams_t selectionParams = initRandomSelectionParams();
     CrossoverParams_t crossoverParams = initOnePointCrossoverParams();
 
-    GAParams_t gaParams = initGAParams(NUM_ITEMS, 10, 0.2, 1, 0.2, 0.05,
-        selectionParams, randomSelection, crossoverParams, onePointCrossover,
-        knapsack_populationFitness);
+    GAParams_t gaParams = initGAParams(
+        NUM_ITEMS, // Size of individual
+        10, // Size of population
+        0.2, // Active gene rate at population initialization
+        50, // Number of generations
+        0.3, // Elitism ratio 
+        0.1, // Mutation rate
+        selectionParams,
+        randomSelection, // Selection function
+        crossoverParams,
+        onePointCrossover, // Crossover function
+        knapsack_populationFitness // Fitness function
+    );
 
     // Run the Genetic Algorithm
     Population_t finalPopulation = runGeneticAlgorithm(gaParams);

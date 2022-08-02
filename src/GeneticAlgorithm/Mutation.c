@@ -6,26 +6,28 @@
 
 #include "../../include/Mutation.h"
 
-void mutate_population(Population_t population, float probability) {
+// Randomly flip bits of offsprings in population
+void mutatePopulation(Population_t population, size_t numElitists,
+	float probability) {
 
-	for (int x = 0; x < population->populationSize; x ++) {
-		mutate_individual(population->array[x], population->individualSize,
+	for (size_t i = numElitists; i < population->populationSize; i++) {
+		mutateIndividual(population->array[i], population->individualSize,
 			probability);
 	}
-
 	return;
 }
 
-void mutate_individual(Individual_t individual, int size_of_individual,
+// Randomly flip bits of the individual
+void mutateIndividual(Individual_t individual, size_t individualSize,
 	float probability) {
 
-	float calc_probability = probability * 100;
+	for (size_t i = 0; i < individualSize; i++) {
 
-	for (int x = 0; x < size_of_individual; x ++) {
-		short random_number = rand()%101;
-		if (random_number <= calc_probability) {
-			individual[x] = !individual[x];
+		size_t randomNumber = rand() % 101;
+		if (randomNumber <= probability * 100) {
+			individual[i] = !individual[i];
 		}
+
 	}
 	return;
 }

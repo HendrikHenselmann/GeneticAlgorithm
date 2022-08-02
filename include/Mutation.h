@@ -5,8 +5,10 @@
 
 #include "DTypes.h"
 
-void mutate_individual(Individual_t individual, int size_of_individual,
+// Randomly flip bits of the individual
+void mutateIndividual(Individual_t individual, size_t individualSize,
     float probability);
-void mutate_population(Population_t population, float probability);
+// Randomly flip bits of offsprings in population
+void mutatePopulation(Population_t population, size_t numElitists, float probability);
 
 #endif

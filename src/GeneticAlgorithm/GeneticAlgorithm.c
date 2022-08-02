@@ -5,6 +5,7 @@
 #include <math.h>
 
 #include "../../include/Elitism.h"
+#include "../../include/Mutation.h"
 #include "../../include/PopulationInitialization.h"
 
 #include "../../include/GeneticAlgorithm.h"
@@ -119,6 +120,9 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         params.crossoverFunc(params.crossoverParams);
 
         // MUTATION: Randomly mutate genes of childs
+        // TODO: Standardize so that this line will be:
+        // params.mutationFunc(params.mutationParams);
+        mutatePopulation(population, numElitists, params.mutationProbability);
 
         // EVALUTATION: Determine fitness scores of the new population
         params.populationFitnessFunc(population, fitnessScores);
