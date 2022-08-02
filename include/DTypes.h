@@ -39,6 +39,10 @@ void freePopulation(Population_t population);
 void freeSelectedIndividuals(SelectedIndividuals_t selectedIndividuals);
 void freeFitnessScores(FitnessScores_t fitnessScores);
 
+// Utility functions
+// Get the fittest individuals index of a population
+size_t fittestIndividual(FitnessScores_t fitnessScores);
+
 // Pretty printing functions
 void printFitnessScores(FitnessScores_t fitnessScores);
 void printIndividual(Individual_t individual, size_t individualSize);

@@ -94,6 +94,22 @@ void freeFitnessScores(FitnessScores_t fitnessScores) {
     free(fitnessScores);
 }
 
+// Get the fittest individuals index of a population
+size_t fittestIndividual(FitnessScores_t fitnessScores) {
+
+    size_t fittestIndex = 0;
+    float fittestFitness = fitnessScores->array[0];
+
+    for (size_t i = 1; i < fitnessScores->size; i++) {
+        if (fitnessScores->array[i] > fittestFitness) {
+            fittestIndex = i;
+            fittestFitness = fitnessScores->array[i];
+        }
+    }
+
+    return fittestIndex;
+}
+
 void printFitnessScores(FitnessScores_t fitnessScores) {
     printf("[");
     for(size_t i = 0; i < fitnessScores->size; i++) {

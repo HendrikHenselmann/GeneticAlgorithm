@@ -42,12 +42,6 @@ int main() {
     // Run the Genetic Algorithm
     Population_t finalPopulation = runGeneticAlgorithm(gaParams);
 
-    // Display selected individuals
-    printf("\n\nFinal Solution:\n");
-    for (size_t i = 0; i < finalPopulation->populationSize; i++) {
-        knapsack_displayIndividual(finalPopulation->array[i]);
-    }
-
     // Free all memory allocations
     freePopulation(finalPopulation);
 

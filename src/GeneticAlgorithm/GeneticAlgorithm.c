@@ -6,6 +6,7 @@
 
 #include "../../include/Elitism.h"
 #include "../../include/Mutation.h"
+#include "../../include/Knapsack.h"
 #include "../../include/PopulationInitialization.h"
 
 #include "../../include/GeneticAlgorithm.h"
@@ -134,6 +135,11 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     // Print final fitness scores
     printf("Final fitness: ");
     printFitnessScores(fitnessScores);
+
+    // Display the fittest individual
+    printf("\n\nFinal Solution:\n");
+    size_t fittest = fittestIndividual(fitnessScores);
+    knapsack_displayIndividual(population->array[fittest]);
 
     // Free allocated memory (Fitness array, ...)
     freeSelectedIndividuals(selectedIndis);
