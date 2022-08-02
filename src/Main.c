@@ -33,7 +33,7 @@ int main() {
         0.3, // Elitism ratio 
         0.3, // Mutation rate
         selectionParams,
-        randomSelection, // Selection function
+        rouletteSelection, // Selection function
         crossoverParams,
         onePointCrossover, // Crossover function
         knapsack_populationFitness // Fitness function
