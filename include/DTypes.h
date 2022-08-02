@@ -40,6 +40,7 @@ void freeSelectedIndividuals(SelectedIndividuals_t selectedIndividuals);
 void freeFitnessScores(FitnessScores_t fitnessScores);
 
 // Pretty printing functions
+void printFitnessScores(FitnessScores_t fitnessScores);
 void printIndividual(Individual_t individual, size_t individualSize);
 void printPopulation(Population_t population);
 

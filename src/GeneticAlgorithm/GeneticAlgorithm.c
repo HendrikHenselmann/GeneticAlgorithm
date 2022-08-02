@@ -113,6 +113,9 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         // ELITISM: The fittest individuals survive unmodified.
         applyElitism(population, fitnessScores);
 
+        // Print intermediate fitness scores
+        printFitnessScores(fitnessScores);
+
         // SELECTION: Select individuals for reproduction (/"crossover")
         params.selectionFunc(params.selectionParams);
 
@@ -127,6 +130,10 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         // EVALUTATION: Determine fitness scores of the new population
         params.populationFitnessFunc(population, fitnessScores);
     }
+
+    // Print final fitness scores
+    printf("Final fitness: ");
+    printFitnessScores(fitnessScores);
 
     // Free allocated memory (Fitness array, ...)
     freeSelectedIndividuals(selectedIndis);

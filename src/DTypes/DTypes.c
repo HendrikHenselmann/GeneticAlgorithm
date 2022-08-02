@@ -94,6 +94,14 @@ void freeFitnessScores(FitnessScores_t fitnessScores) {
     free(fitnessScores);
 }
 
+void printFitnessScores(FitnessScores_t fitnessScores) {
+    printf("[");
+    for(size_t i = 0; i < fitnessScores->size; i++) {
+        printf(" %.3f", fitnessScores->array[i]);
+    }
+    printf(" ]\n");
+}
+
 void printIndividual(Individual_t individual, size_t individualSize) {
     printf("\nIndividual:\n===========\n");
     for (size_t i = 0; i < individualSize; i++) {

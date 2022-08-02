@@ -27,11 +27,11 @@ int main() {
 
     GAParams_t gaParams = initGAParams(
         NUM_ITEMS, // Size of individual
-        10, // Size of population
+        15, // Size of population
         0.2, // Active gene rate at population initialization
-        50, // Number of generations
+        40, // Number of generations
         0.3, // Elitism ratio 
-        0.1, // Mutation rate
+        0.3, // Mutation rate
         selectionParams,
         randomSelection, // Selection function
         crossoverParams,
@@ -43,6 +43,7 @@ int main() {
     Population_t finalPopulation = runGeneticAlgorithm(gaParams);
 
     // Display selected individuals
+    printf("\n\nFinal Solution:\n");
     for (size_t i = 0; i < finalPopulation->populationSize; i++) {
         knapsack_displayIndividual(finalPopulation->array[i]);
     }
