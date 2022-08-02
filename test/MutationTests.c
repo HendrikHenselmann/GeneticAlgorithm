@@ -20,31 +20,11 @@ int main() {
 
     printPopulation(pop1);
 
-    mutate_population(pop1, MUTATION_PROBABILITY);
+    mutatePopulation(pop1, 0, MUTATION_PROBABILITY);
 
     printPopulation(pop1);
 
-
     freePopulation(pop1);
-
-
-    // mutate(ind1, NUM_ITEMS, 0.5);
-
-    // long counter = 0;
-
-    // for (long x = 0; x < NUM_ITEMS; x++) {
-
-    //     if (ind1[x]) {
-    //         counter ++;
-    //     }
-    // }
-
-    // float ratio = (float) counter/NUM_ITEMS;
-
-    // printf("Of %ld items there are %ld true values which is a ratio of %f",
-    //    NUM_ITEMS, counter, ratio);
-
-    // free(ind1);
 
     return 0;
 }
