@@ -18,15 +18,18 @@ int main() {
     // It is very important that this is the only place where srand is called!
     srand(time(NULL));
 
+    // Choosing the problem
+    Environment_t env = knapsackProblem;
+
     // Display Problem
-    knapsack_displayProblem();
+    env.displayProblem();
 
     // Define parameters of the genetic algorithm
     SelectionParams_t selectionParams = initRandomSelectionParams();
     CrossoverParams_t crossoverParams = initOnePointCrossoverParams();
 
     GAParams_t gaParams = initGAParams(
-        NUM_ITEMS, // Size of individual
+        env, // Environment
         15, // Size of population
         0.2, // Active gene rate at population initialization
         40, // Number of generations
@@ -35,8 +38,7 @@ int main() {
         selectionParams,
         rouletteSelection, // Selection function
         crossoverParams,
-        onePointCrossover, // Crossover function
-        knapsack_populationFitness // Fitness function
+        onePointCrossover // Crossover function
     );
 
     // Run the Genetic Algorithm

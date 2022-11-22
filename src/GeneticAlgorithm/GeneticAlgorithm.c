@@ -12,19 +12,16 @@
 #include "../../include/GeneticAlgorithm.h"
 
 // Assembling the Genetic Algorithm parameters
-GAParams_t initGAParams(size_t individualSize, size_t populationSize,
+GAParams_t initGAParams(Environment_t env, size_t populationSize,
     float activeGeneRate, unsigned long numEvolutions, float elitismRatio,
     float mutationProbability,
     SelectionParams_t selectionParams,
     void (*selectionFunc) (SelectionParams_t params),
     CrossoverParams_t crossoverParams,
-    void (*crossoverFunc) (CrossoverParams_t params),
-    void (*populationFitnessFunc) (Population_t population,
-        FitnessScores_t fitnessScores)
-    ) {
+    void (*crossoverFunc) (CrossoverParams_t params)) {
 
     return (GAParams_t) {
-        .individualSize = individualSize,
+        .env = env,
         .populationSize = populationSize,
         .activeGeneRate = activeGeneRate,
         .numEvolutions = numEvolutions,
@@ -33,8 +30,7 @@ GAParams_t initGAParams(size_t individualSize, size_t populationSize,
         .selectionParams = selectionParams,
         .selectionFunc = selectionFunc,
         .crossoverParams = crossoverParams,
-        .crossoverFunc = crossoverFunc,
-        .populationFitnessFunc = populationFitnessFunc
+        .crossoverFunc = crossoverFunc
     };
 }
 
@@ -57,7 +53,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
 
     // Initializing population
     Population_t population =
-        initializePopulation(params.populationSize, params.individualSize,
+        initializePopulation(params.populationSize, params.env.individualSize,
             params.activeGeneRate);
     if (!population) {
         return NULL;
@@ -73,7 +69,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
 
     // Initializing a struct that stores the indices of selected individuals
     SelectedIndividuals_t selectedIndis =
-        initSelectedIndividuals(numSelectedPairs, params.individualSize);
+        initSelectedIndividuals(numSelectedPairs, params.env.individualSize);
     if (!selectedIndis) {
         freeFitnessScores(fitnessScores);
         freePopulation(population);
@@ -104,7 +100,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     printf("GA initialization successfull!\n");
 
     // Determine initial fitness scores
-    params.populationFitnessFunc(population, fitnessScores);
+    params.env.calcPopulationFitness(population, fitnessScores);
 
     // Main loop of generations
     for (unsigned long generation = 0;
@@ -129,7 +125,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         mutatePopulation(population, numElitists, params.mutationProbability);
 
         // EVALUTATION: Determine fitness scores of the new population
-        params.populationFitnessFunc(population, fitnessScores);
+        params.env.calcPopulationFitness(population, fitnessScores);
     }
 
     // Print final fitness scores

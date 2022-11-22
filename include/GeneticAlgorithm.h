@@ -7,13 +7,16 @@
 
 #include "./Selection.h"
 #include "./Crossover.h"
+#include "./Environment.h"
 
 // The parameters for the Genetic Algorithm Function
 // This struct should solely be initialized by the initialization function
 // below.
 typedef struct GAParams_ {
-    // Number of genes (bits) per individual
-    size_t individualSize;
+    // Environment. Including individualSize, which is the number of genes
+    // (bits) per individual. Also including function to calculate Individual
+    // and Population fitness.
+    Environment_t env;
     // Number of individuals forming the population
     size_t populationSize;
     // Probability that an individuals gene is active ( / 1 / true )
@@ -31,22 +34,16 @@ typedef struct GAParams_ {
     // Crossover function
     CrossoverParams_t crossoverParams;
     void (*crossoverFunc) (CrossoverParams_t params);
-    // Fitness function
-    void (*populationFitnessFunc) (Population_t population,
-        FitnessScores_t fitnessScores);
 } GAParams_t;
 
 // Assembling the Genetic Algorithm parameters
-GAParams_t initGAParams(size_t individualSize, size_t populationSize,
+GAParams_t initGAParams(Environment_t env, size_t populationSize,
     float activeGeneRate, unsigned long numEvolutions, float elitismRatio,
     float mutationProbability,
     SelectionParams_t selectionParams,
     void (*selectionFunc) (SelectionParams_t params),
     CrossoverParams_t crossoverParams,
-    void (*crossoverFunc) (CrossoverParams_t params),
-    void (*populationFitnessFunc) (Population_t population,
-        FitnessScores_t fitnessScores)
-);
+    void (*crossoverFunc) (CrossoverParams_t params));
 
 // Running the Genetic Algorithm based on the given parameters
 Population_t runGeneticAlgorithm(GAParams_t params);

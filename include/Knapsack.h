@@ -10,6 +10,7 @@
 #include <stdlib.h>
 // Project headers
 #include "./DTypes.h"
+#include "./Environment.h"
 // ----------------------------------------------------------------------------
 
 
@@ -20,6 +21,7 @@
 #define KNAPSACK_WEIGHT_CAP 100
 // Items
 #define NUM_ITEMS 10
+
 // ----------------------------------------------------------------------------
 
 
@@ -47,9 +49,18 @@ void knapsack_populationFitness(Population_t population,
 void knapsack_displayProblem(void);
 // Display an Individual interpreted according to the problem
 void knapsack_displayIndividual(Individual_t individual);
+// Display the Population interpreted according to the problem
+void knapsack_displayPopulation(Population_t population);
 // Calculate the optimal solution
 // Returning INT_MIN to indicate failure of malloc
 float knapsack_calcOptimum(void);
+// ----------------------------------------------------------------------------
+
+
+// ----------------------------------------------------------------------------
+// The exported environment
+// ----------------------------------------------------------------------------
+extern Environment_t knapsackProblem;
 // ----------------------------------------------------------------------------
 
 #endif  // KNAPSACK_H_
