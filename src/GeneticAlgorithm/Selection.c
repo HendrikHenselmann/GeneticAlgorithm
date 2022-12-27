@@ -101,6 +101,9 @@ void rouletteSelection(SelectionParams_t params) {
     float fitnessScoresSum =
         params.fitnessScores->array[params.fitnessScores->size-1];
 
+    // TODO: If all fitness scores are 0 -> Floating point error in modulo,
+    //       because of division by 0! Need to be fixed!!
+
     // Select one pair at every iteration
     for (size_t i = 0; i < params.numSelectedPairs; i++) {
 
@@ -145,6 +148,4 @@ void rouletteSelection(SelectionParams_t params) {
 // numSelectedPairs is the amount of individuals that are selected overall
 // opposed to tournamentSize, which is the size of selected individuals
 // of every tournament
-void tournamentSelection(SelectionParams_t params) {
-
-}
+void tournamentSelection(SelectionParams_t params) {}

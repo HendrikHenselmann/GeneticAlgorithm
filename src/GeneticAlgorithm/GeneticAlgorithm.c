@@ -126,6 +126,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
 
         // EVALUTATION: Determine fitness scores of the new population
         params.env.calcPopulationFitness(population, fitnessScores);
+
     }
 
     // Print final fitness scores
@@ -135,7 +136,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     // Display the fittest individual
     printf("\n\nFinal Solution:\n");
     size_t fittest = fittestIndividual(fitnessScores);
-    knapsack_displayIndividual(population->array[fittest]);
+    params.env.displayIndividual(population->array[fittest]);
 
     // Free allocated memory (Fitness array, ...)
     freeSelectedIndividuals(selectedIndis);

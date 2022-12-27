@@ -6,6 +6,8 @@
 #include <string.h>
 
 #include "../include/Knapsack.h"
+#include "../include/EightQueens.h"
+
 #include "../include/Selection.h"
 #include "../include/Crossover.h"
 // #include "../include/Mutation.h"
@@ -19,7 +21,7 @@ int main() {
     srand(time(NULL));
 
     // Choosing the problem
-    Environment_t env = knapsackProblem;
+    Environment_t env = eightQueensProblem;
 
     // Display Problem
     env.displayProblem();
@@ -30,13 +32,13 @@ int main() {
 
     GAParams_t gaParams = initGAParams(
         env, // Environment
-        15, // Size of population
-        0.2, // Active gene rate at population initialization
-        40, // Number of generations
-        0.3, // Elitism ratio 
+        20, // Size of population
+        0.5, // Active gene rate at population initialization
+        100, // Number of generations
+        0.2, // Elitism ratio
         0.3, // Mutation rate
         selectionParams,
-        rouletteSelection, // Selection function
+        randomSelection, // Selection function
         crossoverParams,
         onePointCrossover // Crossover function
     );

@@ -27,7 +27,7 @@ Item_t itemList[NUM_ITEMS] = {
 // ----------------------------------------------------------------------------
 
 // Defining a seperation line
-char separator[] = "===========================================================\
+static char separator[] = "===========================================================\
 ===========";
 
 // Accumulation of individuals weight
