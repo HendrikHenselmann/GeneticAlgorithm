@@ -18,7 +18,8 @@ GAParams_t initGAParams(Environment_t env, size_t populationSize,
     SelectionParams_t selectionParams,
     void (*selectionFunc) (SelectionParams_t params),
     CrossoverParams_t crossoverParams,
-    void (*crossoverFunc) (CrossoverParams_t params)) {
+    void (*crossoverFunc) (CrossoverParams_t params),
+    int verbosityLevel) {
 
     return (GAParams_t) {
         .env = env,
@@ -30,7 +31,8 @@ GAParams_t initGAParams(Environment_t env, size_t populationSize,
         .selectionParams = selectionParams,
         .selectionFunc = selectionFunc,
         .crossoverParams = crossoverParams,
-        .crossoverFunc = crossoverFunc
+        .crossoverFunc = crossoverFunc,
+        .verbosityLevel = verbosityLevel
     };
 }
 
@@ -102,7 +104,6 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
 
     // Determine initial fitness scores
     params.env.calcPopulationFitness(population, fitnessScores);
-    float maxFitness = fitnessScores->array[0];
 
     // Main loop of generations
     for (unsigned long generation = 0;
@@ -112,8 +113,17 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         // ELITISM: The fittest individuals survive unmodified.
         applyElitism(population, fitnessScores);
 
-        // Print intermediate fitness scores
-        printFitnessScores(fitnessScores);
+        // Print intermediate fitness scores depending on verbosity level
+        if (params.verbosityLevel == 3)
+            printFitnessScores(fitnessScores);
+        else if (params.verbosityLevel == 2) {
+            float accFitness = 0;
+            for (size_t i = 0; i < fitnessScores->size; i++)
+                accFitness += fitnessScores->array[i];
+            printf("Max fitness: %.03f | acc. fitness: %.03f\n",
+                fitnessScores->array[0], accFitness);
+        } else if (params.verbosityLevel == 1)
+            printf("Max fitness: %.03f\n", fitnessScores->array[0]);
 
         // SELECTION: Select individuals for reproduction (/"crossover")
         params.selectionFunc(params.selectionParams);

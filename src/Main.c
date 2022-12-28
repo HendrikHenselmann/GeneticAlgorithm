@@ -19,6 +19,7 @@
 #define DEFAULT_MUTATION_RATE 0.1
 #define DEFAULT_ELITISM_RATIO 0.2
 #define DEFAULT_ACTIVE_GENE_RATE 0.5
+#define DEFAULT_VERBOSITY_LEVEL 0
 
 void printHelpText (void) {
     printf("\nArgument | Default");
@@ -28,6 +29,7 @@ void printHelpText (void) {
     printf("\nMutation rate | %.3f", DEFAULT_MUTATION_RATE);
     printf("\nElitism ratio | %.3f", DEFAULT_ELITISM_RATIO);
     printf("\nActive gene rate at initialization | %.3f", DEFAULT_ACTIVE_GENE_RATE);
+    printf("\nVerbosity level | %d", DEFAULT_VERBOSITY_LEVEL);
     printf("\n\n");
     return;
 }
@@ -55,6 +57,8 @@ int main(int argc, char *argv[]) {
     if (argc > 4) elitismRatio = atof(argv[4]);
     float activeGeneRate = DEFAULT_ACTIVE_GENE_RATE;
     if (argc > 5) activeGeneRate = atof(argv[5]);
+    int verbosityLevel = DEFAULT_VERBOSITY_LEVEL;
+    if (argc > 6) verbosityLevel = atoi(argv[6]);
 
     // Choosing the problem
     Environment_t env = eightQueensProblem;
@@ -76,7 +80,8 @@ int main(int argc, char *argv[]) {
         selectionParams,
         randomSelection, // Selection function
         crossoverParams,
-        onePointCrossover // Crossover function
+        onePointCrossover, // Crossover function
+        verbosityLevel // Verbosity
     );
 
     // Run the Genetic Algorithm
