@@ -94,6 +94,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     params.crossoverParams.numElitists = numElitists;
     params.crossoverParams.population = population;
     params.crossoverParams.selectedIndividuals = selectedIndis;
+    params.crossoverParams.geneLength = params.env.geneLength;
 
 // -----------------------------------------------------------------------------
 
@@ -101,6 +102,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
 
     // Determine initial fitness scores
     params.env.calcPopulationFitness(population, fitnessScores);
+    float maxFitness = fitnessScores->array[0];
 
     // Main loop of generations
     for (unsigned long generation = 0;

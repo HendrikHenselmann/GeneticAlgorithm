@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 #include "../../include/Crossover.h"
 
@@ -35,19 +36,21 @@ void onePointCrossover(CrossoverParams_t params) {
             params.population->array[params.numElitists + 2*i+1];
 
         // Randomly choose a crossover point
-        size_t crossPoint = rand() % (params.population->individualSize-1);
+        size_t crossPoint = rand() %
+            ((params.population->individualSize / params.geneLength) - 1);
 
         // Execute crossover process
-        memcpy(offspring1, parent1, crossPoint*sizeof(bool));
-        memcpy(&(offspring1[crossPoint+1]), parent2,
-            (params.population->individualSize-crossPoint)*sizeof(bool));
-        memcpy(offspring2, parent2, crossPoint*sizeof(bool));
-        memcpy(&(offspring2[crossPoint+1]), parent1,
-            (params.population->individualSize-crossPoint)*sizeof(bool));
+        memcpy(offspring1, parent1,
+            crossPoint*params.geneLength*sizeof(bool));
+        memcpy(&(offspring1[crossPoint*params.geneLength]), parent2,
+            (params.population->individualSize-crossPoint*params.geneLength)
+                *sizeof(bool));
+        memcpy(offspring2, parent2, crossPoint*params.geneLength*sizeof(bool));
+        memcpy(&(offspring2[crossPoint*params.geneLength]), parent1,
+            (params.population->individualSize-crossPoint*params.geneLength)
+                *sizeof(bool));
     }
 }
 
-// Same as One Point Crossover but with 2 randomly selected split points.
-void twoPointCrossover(CrossoverParams_t params) {
-    // TODO
-}
+// TODO: Same as One Point Crossover but with 2 randomly selected split points.
+void twoPointCrossover(CrossoverParams_t params) {}

@@ -14,7 +14,7 @@
 
 // -----------------------------------------------------------------------------
 // Parameter of Crossover functions
-// Should only be initialized using the initialization functions below!
+// Should solely be initialized using the initialization functions below!
 // -----------------------------------------------------------------------------
 
 // Defining the input type for every Crossover function
@@ -27,6 +27,9 @@ typedef struct {
     // Number of individuals that survive unmodified. This is needed to know
     // where the new children are stored that are formed at the crossover step.
     size_t numElitists;
+    // The length of one gene of an individual.
+    // Prevents splitting a gene which would result in the loss of information.
+    size_t geneLength;
 } CrossoverParams_t;
 
 // -----------------------------------------------------------------------------

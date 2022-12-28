@@ -1,3 +1,5 @@
+// Copyright [2022] <Nicola Distl, Hendrik Henselmann>
+
 #include "../../include/Knapsack.h"
 
 #include <stdlib.h>
@@ -191,6 +193,7 @@ float knapsack_calcOptimum(void) {
 // Assembling the environment
 Environment_t knapsackProblem = (Environment_t) {
     .individualSize = NUM_ITEMS,
+    .geneLength = 1,
     .displayProblem = knapsack_displayProblem,
     .displayIndividual = knapsack_displayIndividual,
     .displayPopulation = knapsack_displayPopulation,

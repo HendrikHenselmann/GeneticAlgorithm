@@ -1,3 +1,5 @@
+// Copyright [2022] <Nicola Distl, Hendrik Henselmann>
+
 #include "../../include/EightQueens.h"
 
 #include <stdio.h>
@@ -133,7 +135,7 @@ void eightQueens_displayIndividual (Individual_t individual) {
     // Print the number of conflicts (fitness value)
     printf("\n%s", separator);
     float indiFitness = eightQueens_individualFitness(individual);
-    printf("\nconflicts: %02.f of 27, fitness: %02.f",
+    printf("\nconflicts: %02.f of 28, fitness: %02.f",
         28 - indiFitness,
         indiFitness
         );
@@ -143,7 +145,19 @@ void eightQueens_displayIndividual (Individual_t individual) {
 }
 
 // Display the Population interpreted according to the problem
-void eightQueens_displayPopulation (Population_t population) {}
+void eightQueens_displayPopulation (Population_t population) {
+
+    // Print the heading
+    printf("\n\n%s", separator);
+    printf("\nPopulation of %zu Individuals:", population->populationSize);
+    printf("\n%s\n", separator);
+
+    // Print every Individual
+    for (size_t i = 0; i < population->populationSize; i++)
+        eightQueens_displayIndividual(population->array[i]);
+
+    return;
+}
 
 // Calculate the optimal solution
 // Returning INT_MIN to indicate failure of malloc
@@ -152,6 +166,7 @@ float eightQueens_calcOptimum (void) {}
 // Assembling the environment
 Environment_t eightQueensProblem = (Environment_t) {
     .individualSize = 48,  // (x, y) coordinates of 8 Queens, x and y in [0, 7] encoded by 3 bit => 8 * 2 * 3 = 48
+    .geneLength = 3,
     .displayProblem = eightQueens_displayProblem,
     .displayIndividual = eightQueens_displayIndividual,
     .displayPopulation = eightQueens_displayPopulation,

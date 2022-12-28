@@ -14,11 +14,47 @@
 #include "../include/GeneticAlgorithm.h"
 #include "../include/PopulationInitialization.h"
 
-int main() {
-    
+#define DEFAULT_NUM_EVOLUTIONS 1000
+#define DEFAULT_POPULATION_SIZE 20
+#define DEFAULT_MUTATION_RATE 0.1
+#define DEFAULT_ELITISM_RATIO 0.2
+#define DEFAULT_ACTIVE_GENE_RATE 0.5
+
+void printHelpText (void) {
+    printf("\nArgument | Default");
+    printf("\n=======================================");
+    printf("\nNumber of evolutions | %d", DEFAULT_NUM_EVOLUTIONS);
+    printf("\nPopulation size | %d", DEFAULT_POPULATION_SIZE);
+    printf("\nMutation rate | %.3f", DEFAULT_MUTATION_RATE);
+    printf("\nElitism ratio | %.3f", DEFAULT_ELITISM_RATIO);
+    printf("\nActive gene rate at initialization | %.3f", DEFAULT_ACTIVE_GENE_RATE);
+    printf("\n\n");
+    return;
+}
+
+int main(int argc, char *argv[]) {
+
     // Set random seed. This should be done once for the the whole program!
     // It is very important that this is the only place where srand is called!
     srand(time(NULL));
+
+    // Command line argument parsing
+    if (argc > 1
+        && (strcmp (argv[1], "-h") == 0
+            || strcmp (argv[1], "--help") == 0)) {
+        printHelpText ();
+        return 0;
+    }
+    unsigned long numEvolutions = DEFAULT_NUM_EVOLUTIONS;
+    if (argc > 1) numEvolutions = atoi(argv[1]);
+    size_t populationSize = DEFAULT_POPULATION_SIZE;
+    if (argc > 2) populationSize = atoi(argv[2]);
+    float mutationProbability = DEFAULT_MUTATION_RATE;
+    if (argc > 3) mutationProbability = atof(argv[3]);
+    float elitismRatio = DEFAULT_ELITISM_RATIO;
+    if (argc > 4) elitismRatio = atof(argv[4]);
+    float activeGeneRate = DEFAULT_ACTIVE_GENE_RATE;
+    if (argc > 5) activeGeneRate = atof(argv[5]);
 
     // Choosing the problem
     Environment_t env = eightQueensProblem;
@@ -32,11 +68,11 @@ int main() {
 
     GAParams_t gaParams = initGAParams(
         env, // Environment
-        20, // Size of population
-        0.5, // Active gene rate at population initialization
-        100, // Number of generations
-        0.2, // Elitism ratio
-        0.3, // Mutation rate
+        populationSize, // Size of population
+        activeGeneRate, // Active gene rate at population initialization
+        numEvolutions, // Number of generations
+        elitismRatio, // Elitism ratio
+        mutationProbability, // Mutation rate
         selectionParams,
         randomSelection, // Selection function
         crossoverParams,

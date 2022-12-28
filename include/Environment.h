@@ -8,6 +8,9 @@
 typedef struct {
     // The size of an individual according to the environment
     size_t individualSize;
+    // The length of one gene of the individual
+    // Assumption: All genes are of the same length.
+    size_t geneLength;
     // Displaying a description of the problem
     void (*displayProblem) (void);
     // Displaying the interpretation of one individual
