@@ -1,9 +1,11 @@
 // Copyright [2022] <Nicola Distl, Hendrik Henselmann>
 
 #include <time.h>
+#include <float.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 #include "../include/Knapsack.h"
 #include "../include/EightQueens.h"
@@ -20,7 +22,6 @@
 #define DEFAULT_ELITISM_RATIO 0.2
 #define DEFAULT_ACTIVE_GENE_RATE 0.5
 #define DEFAULT_VERBOSITY_LEVEL 0
-#define DEFAULT_OUTPUT_FILE "output.txt"
 
 void printHelpText (void) {
     printf("\nArgument | Default");
@@ -33,6 +34,11 @@ void printHelpText (void) {
     printf("\nVerbosity level | %d", DEFAULT_VERBOSITY_LEVEL);
     printf("\n\n");
     return;
+}
+
+// Determine if a float is a valid probability value in [0, 1]
+bool floatIsProba (float f) {
+    return (f > 0.0 - FLT_EPSILON) && (f < 1.0 + FLT_EPSILON);
 }
 
 int main(int argc, char *argv[]) {
@@ -60,8 +66,14 @@ int main(int argc, char *argv[]) {
     if (argc > 5) activeGeneRate = atof(argv[5]);
     int verbosityLevel = DEFAULT_VERBOSITY_LEVEL;
     if (argc > 6) verbosityLevel = atoi(argv[6]);
-    char outputFile[] = DEFAULT_OUTPUT_FILE;
-    if (argc > 7) strcpy (outputFile, argv[7]);
+
+    // Check if user input is valid
+    assert (numEvolutions > 0);
+    assert (populationSize > 0);
+    assert (floatIsProba (mutationProbability));
+    assert (floatIsProba (elitismRatio));
+    assert (floatIsProba (activeGeneRate));
+    assert (verbosityLevel >= 0 && verbosityLevel <= 3);
 
     // Choosing the problem
     Environment_t env = eightQueensProblem;
@@ -84,8 +96,7 @@ int main(int argc, char *argv[]) {
         rouletteSelection, // Selection function
         crossoverParams,
         onePointCrossover, // Crossover function
-        verbosityLevel, // Verbosity
-        outputFile
+        verbosityLevel // Verbosity
     );
 
     // Run the Genetic Algorithm

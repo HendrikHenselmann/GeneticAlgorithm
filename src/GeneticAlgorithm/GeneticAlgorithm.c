@@ -20,10 +20,9 @@ GAParams_t initGAParams(Environment_t env, size_t populationSize,
     void (*selectionFunc) (SelectionParams_t params),
     CrossoverParams_t crossoverParams,
     void (*crossoverFunc) (CrossoverParams_t params),
-    int verbosityLevel,
-    char outputFile[]) {
+    int verbosityLevel) {
 
-    GAParams_t params = {
+    return (GAParams_t) {
         .env = env,
         .populationSize = populationSize,
         .activeGeneRate = activeGeneRate,
@@ -34,14 +33,8 @@ GAParams_t initGAParams(Environment_t env, size_t populationSize,
         .selectionFunc = selectionFunc,
         .crossoverParams = crossoverParams,
         .crossoverFunc = crossoverFunc,
-        .verbosityLevel = verbosityLevel,
+        .verbosityLevel = verbosityLevel
     };
-
-    char concatStr[256] = "./logs/";
-    strcat(concatStr, outputFile);
-    strcpy (params.outputFile, concatStr);
-
-    return params;
 }
 
 // Running the Genetic Algorithm based on the given parameters
@@ -86,9 +79,28 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         return NULL;
     }
 
-    // Open output file
-    FILE *file = fopen(params.outputFile, "w");
-    if (!file) {
+    // Open output files
+    FILE *fittestIndiFile = fopen("./logs/fittestIndividual.txt", "w");
+    if (!fittestIndiFile) {
+        freeSelectedIndividuals(selectedIndis);
+        freeFitnessScores(fitnessScores);
+        freePopulation(population);
+        return NULL;
+    }
+
+    FILE *accumulatedFitnessFile = fopen("./logs/avgFitness.txt", "w");
+    if (!accumulatedFitnessFile) {
+        fclose(fittestIndiFile);
+        freeSelectedIndividuals(selectedIndis);
+        freeFitnessScores(fitnessScores);
+        freePopulation(population);
+        return NULL;
+    }
+
+    FILE *elitistsFitnessFile = fopen("./logs/elitistsAvgFitness.txt", "w");
+    if (!elitistsFitnessFile) {
+        fclose(accumulatedFitnessFile);
+        fclose(fittestIndiFile);
         freeSelectedIndividuals(selectedIndis);
         freeFitnessScores(fitnessScores);
         freePopulation(population);
@@ -130,11 +142,19 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         // ELITISM: The fittest individuals survive unmodified.
         applyElitism(population, fitnessScores);
 
-        // Sum fitness scores and write it to file
+        // Sum fitness scores and write them to files
         float accFitness = 0;
+        float accElitistsFitness = 0;
         for (size_t i = 0; i < fitnessScores->size; i++)
+        {
             accFitness += fitnessScores->array[i];
-        fprintf(file, "%.3f\n", accFitness);
+            if (i < numElitists) accElitistsFitness += fitnessScores->array[i];
+        }
+        fprintf(fittestIndiFile, "%.3f\n", fitnessScores->array[0]);
+        fprintf(accumulatedFitnessFile, "%.3f\n",
+            accFitness / population->populationSize);
+        fprintf(elitistsFitnessFile, "%.3f\n",
+            accElitistsFitness / numElitists);
 
         // Print intermediate fitness scores depending on verbosity level
         if (params.verbosityLevel == 3)
@@ -161,6 +181,9 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
 
     }
 
+    // Sort fitness scores
+    applyElitism(population, fitnessScores);
+
     // Print final fitness scores
     // Note that they are not sorted at this point
     printf("Final fitness: ");
@@ -168,21 +191,30 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
 
     // Display the fittest individual
     printf("\n\nFinal Solution:\n");
-    size_t fittest = fittestIndividual(fitnessScores);
-    params.env.displayIndividual(population->array[fittest]);
+    params.env.displayIndividual(population->array[0]);
 
-    // Sum fitness scores and write it to file
+    // Sum fitness scores and write them to files
     float accFitness = 0;
+    float accElitistsFitness = 0;
     for (size_t i = 0; i < fitnessScores->size; i++)
+    {
         accFitness += fitnessScores->array[i];
-    fprintf(file, "%.3f\n", accFitness);
+        if (i < numElitists) accElitistsFitness += fitnessScores->array[i];
+    }
+    fprintf(fittestIndiFile, "%.3f\n", fitnessScores->array[0]);
+    fprintf(accumulatedFitnessFile, "%.3f\n",
+        accFitness / population->populationSize);
+    fprintf(elitistsFitnessFile, "%.3f\n",
+        accElitistsFitness / numElitists);
 
     // Free allocated memory (Fitness array, ...)
     freeSelectedIndividuals(selectedIndis);
     freeFitnessScores(fitnessScores);
 
-    // Close output file
-    fclose(file);
+    // Close output files
+    fclose(elitistsFitnessFile);
+    fclose(accumulatedFitnessFile);
+    fclose(fittestIndiFile);
 
     // Returns final population
     return population;

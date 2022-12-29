@@ -36,7 +36,6 @@ typedef struct GAParams_ {
     void (*crossoverFunc) (CrossoverParams_t params);
     // Print options | 3: a lot, 2: less, 1: little, 0: none
     int verbosityLevel;
-    char outputFile[256];
 } GAParams_t;
 
 // Assembling the Genetic Algorithm parameters
@@ -47,8 +46,7 @@ GAParams_t initGAParams(Environment_t env, size_t populationSize,
     void (*selectionFunc) (SelectionParams_t params),
     CrossoverParams_t crossoverParams,
     void (*crossoverFunc) (CrossoverParams_t params),
-    int verbosityLevel,
-    char outputFile[]);
+    int verbosityLevel);
 
 // Running the Genetic Algorithm based on the given parameters
 Population_t runGeneticAlgorithm(GAParams_t params);
