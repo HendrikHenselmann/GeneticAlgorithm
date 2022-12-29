@@ -29,6 +29,8 @@ all: compile exec clean
 # Defining the compile command
 compileAll: compile compileTests
 compile: $(TARGET)
+	@echo "Creating log output directory..."
+	@mkdir -p logs
 compileTests: $(TESTTARGETS)
 
 exec: $(TARGET)
@@ -59,4 +61,6 @@ $(TESTBUILDDIR)/%.o: $(TESTDIR)/%.$(SRCEXT)
 
 clean:
 	@echo " Cleaning...";
-	@echo " $(RM) -r $(BUILDDIR) $(TARGET) $(TESTBUILDDIR) $(TESTTARGETS) "; $(RM) -r $(BUILDDIR) $(TARGET)  $(TESTBUILDDIR) $(TESTTARGETS)
+	@echo " $(RM) -r $(BUILDDIR) $(TARGET) $(TESTBUILDDIR) $(TESTTARGETS) ";
+	$(RM) -r $(BUILDDIR) $(TARGET)  $(TESTBUILDDIR) $(TESTTARGETS)
+	$(RM) -r logs

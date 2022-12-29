@@ -101,8 +101,12 @@ void rouletteSelection(SelectionParams_t params) {
     float fitnessScoresSum =
         params.fitnessScores->array[params.fitnessScores->size-1];
 
-    // TODO: If all fitness scores are 0 -> Floating point error in modulo,
-    //       because of division by 0! Need to be fixed!!
+    // If all fitness scores are 0 -> Do random selection
+    // The code below would trigger a division by zero in the modulo operator
+    if (fitnessScoresSum < 0.001) {
+        randomSelection (params);
+        return;
+    }
 
     // Select one pair at every iteration
     for (size_t i = 0; i < params.numSelectedPairs; i++) {

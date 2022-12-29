@@ -1,5 +1,6 @@
 // Copyright [2021] <Nicola Distl, Hendrik Henselmann>
 
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -19,9 +20,10 @@ GAParams_t initGAParams(Environment_t env, size_t populationSize,
     void (*selectionFunc) (SelectionParams_t params),
     CrossoverParams_t crossoverParams,
     void (*crossoverFunc) (CrossoverParams_t params),
-    int verbosityLevel) {
+    int verbosityLevel,
+    char outputFile[]) {
 
-    return (GAParams_t) {
+    GAParams_t params = {
         .env = env,
         .populationSize = populationSize,
         .activeGeneRate = activeGeneRate,
@@ -32,8 +34,14 @@ GAParams_t initGAParams(Environment_t env, size_t populationSize,
         .selectionFunc = selectionFunc,
         .crossoverParams = crossoverParams,
         .crossoverFunc = crossoverFunc,
-        .verbosityLevel = verbosityLevel
+        .verbosityLevel = verbosityLevel,
     };
+
+    char concatStr[256] = "./logs/";
+    strcat(concatStr, outputFile);
+    strcpy (params.outputFile, concatStr);
+
+    return params;
 }
 
 // Running the Genetic Algorithm based on the given parameters
@@ -78,6 +86,15 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         return NULL;
     }
 
+    // Open output file
+    FILE *file = fopen(params.outputFile, "w");
+    if (!file) {
+        freeSelectedIndividuals(selectedIndis);
+        freeFitnessScores(fitnessScores);
+        freePopulation(population);
+        return NULL;
+    }
+
 // -----------------------------------------------------------------------------
     // Setup of function parameters.
     // This is a very important step since a forgotten parameter here can cause
@@ -113,13 +130,16 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         // ELITISM: The fittest individuals survive unmodified.
         applyElitism(population, fitnessScores);
 
+        // Sum fitness scores and write it to file
+        float accFitness = 0;
+        for (size_t i = 0; i < fitnessScores->size; i++)
+            accFitness += fitnessScores->array[i];
+        fprintf(file, "%.3f\n", accFitness);
+
         // Print intermediate fitness scores depending on verbosity level
         if (params.verbosityLevel == 3)
             printFitnessScores(fitnessScores);
         else if (params.verbosityLevel == 2) {
-            float accFitness = 0;
-            for (size_t i = 0; i < fitnessScores->size; i++)
-                accFitness += fitnessScores->array[i];
             printf("Max fitness: %.03f | acc. fitness: %.03f\n",
                 fitnessScores->array[0], accFitness);
         } else if (params.verbosityLevel == 1)
@@ -142,6 +162,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     }
 
     // Print final fitness scores
+    // Note that they are not sorted at this point
     printf("Final fitness: ");
     printFitnessScores(fitnessScores);
 
@@ -150,9 +171,18 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     size_t fittest = fittestIndividual(fitnessScores);
     params.env.displayIndividual(population->array[fittest]);
 
+    // Sum fitness scores and write it to file
+    float accFitness = 0;
+    for (size_t i = 0; i < fitnessScores->size; i++)
+        accFitness += fitnessScores->array[i];
+    fprintf(file, "%.3f\n", accFitness);
+
     // Free allocated memory (Fitness array, ...)
     freeSelectedIndividuals(selectedIndis);
     freeFitnessScores(fitnessScores);
+
+    // Close output file
+    fclose(file);
 
     // Returns final population
     return population;
