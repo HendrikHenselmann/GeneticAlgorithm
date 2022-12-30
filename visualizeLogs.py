@@ -35,6 +35,8 @@ def main ():
         # Visualize using matplotlib
         plt.plot (np.arange (len (data)), data)
         plt.title (convertFilenameToTitle (filename))
+        plt.xlabel ("generation")
+        plt.ylabel ("fitness")
         plt.show ()
 
 if __name__ == '__main__':
