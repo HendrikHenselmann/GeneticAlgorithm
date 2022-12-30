@@ -78,6 +78,7 @@ void revertFitnessScoresAccumulation(FitnessScores_t fitnessScores) {
 
 }
 
+// Mapping a randomly chosen fitness score to the corresponding individual
 size_t fitnessScoreToIndividual(FitnessScores_t fitnessScores,
     float precisionFactor, size_t fitnessScore) {
 
