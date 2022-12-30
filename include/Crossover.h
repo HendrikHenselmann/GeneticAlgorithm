@@ -51,6 +51,8 @@ CrossoverParams_t initTwoPointCrossoverParams(void);
 void onePointCrossover(CrossoverParams_t params);
 
 // Same as One Point Crossover but with 2 randomly selected split points.
+// Note: If both randomly selected split points are equal the function is
+//       basically copying the parents.
 void twoPointCrossover(CrossoverParams_t params);
 
 // -----------------------------------------------------------------------------
