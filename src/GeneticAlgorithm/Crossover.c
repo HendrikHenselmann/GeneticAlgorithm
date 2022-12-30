@@ -30,9 +30,9 @@ void onePointCrossover(CrossoverParams_t params) {
         Individual_t parent2 = params.selectedIndividuals->array[2*i+1];
 
         // Offspring destination
-        Individual_t offspring1 = 
+        Individual_t offspring1 =
             params.population->array[params.numElitists + 2*i];
-        Individual_t offspring2 = 
+        Individual_t offspring2 =
             params.population->array[params.numElitists + 2*i+1];
 
         // Randomly choose a crossover point
@@ -42,15 +42,73 @@ void onePointCrossover(CrossoverParams_t params) {
         // Execute crossover process
         memcpy(offspring1, parent1,
             crossPoint*params.geneLength*sizeof(bool));
-        memcpy(&(offspring1[crossPoint*params.geneLength]), parent2,
+        memcpy(&(offspring1[crossPoint*params.geneLength]),
+            &(parent2[crossPoint*params.geneLength]),
             (params.population->individualSize-crossPoint*params.geneLength)
                 *sizeof(bool));
         memcpy(offspring2, parent2, crossPoint*params.geneLength*sizeof(bool));
-        memcpy(&(offspring2[crossPoint*params.geneLength]), parent1,
+        memcpy(&(offspring2[crossPoint*params.geneLength]),
+            &(parent1[crossPoint*params.geneLength]),
             (params.population->individualSize-crossPoint*params.geneLength)
                 *sizeof(bool));
     }
 }
 
-// TODO: Same as One Point Crossover but with 2 randomly selected split points.
-void twoPointCrossover(CrossoverParams_t params) {}
+// Same as One Point Crossover but with 2 randomly selected split points.
+// Note: If both randomly selected split points are equal the function is
+//       basically copying the parents.
+void twoPointCrossover(CrossoverParams_t params) {
+
+    // Loop thorugh pairs of individuals that will be crossed over
+    for (size_t i = 0; i < params.selectedIndividuals->numPairs; i++) {
+
+        // Selected parents
+        Individual_t parent1 = params.selectedIndividuals->array[2*i];
+        Individual_t parent2 = params.selectedIndividuals->array[2*i+1];
+
+        // Offspring destination
+        Individual_t offspring1 =
+            params.population->array[params.numElitists + 2*i];
+        Individual_t offspring2 =
+            params.population->array[params.numElitists + 2*i+1];
+
+        // Randomly choose two crossover point
+        size_t crossPoint1 = rand() %
+            ((params.population->individualSize / params.geneLength) - 1);
+        size_t crossPoint2 = rand() %
+            ((params.population->individualSize / params.geneLength) - 1);
+
+        // Sort crossPoint1 and crossPoint2 by potentially switching
+        if (crossPoint2 < crossPoint1) {
+            size_t temp = crossPoint2;
+            crossPoint2 = crossPoint1;
+            crossPoint1 = temp;
+        }
+
+        // Execute crossover of the first section
+        memcpy(offspring1, parent1,
+            crossPoint1*params.geneLength*sizeof(bool));
+        memcpy(offspring2, parent2,
+            crossPoint1*params.geneLength*sizeof(bool));
+
+        // Execute crossover of the second section
+        memcpy(&(offspring1[crossPoint1*params.geneLength]),
+            &(parent2[crossPoint1*params.geneLength]),
+            (crossPoint2*params.geneLength-crossPoint1*params.geneLength)
+                *sizeof(bool));
+        memcpy(&(offspring2[crossPoint1*params.geneLength]),
+            &(parent1[crossPoint1*params.geneLength]),
+            (crossPoint2*params.geneLength-crossPoint1*params.geneLength)
+                *sizeof(bool));
+
+        // Execute crossover of the third section
+        memcpy(&(offspring1[crossPoint2*params.geneLength]),
+            &(parent1[crossPoint2*params.geneLength]),
+            (params.population->individualSize-crossPoint2*params.geneLength)
+                *sizeof(bool));
+        memcpy(&(offspring2[crossPoint2*params.geneLength]),
+            &(parent2[crossPoint2*params.geneLength]),
+            (params.population->individualSize-crossPoint2*params.geneLength)
+                *sizeof(bool));
+    }
+}

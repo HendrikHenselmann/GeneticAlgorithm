@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
         selectionParams,
         rouletteSelection, // Selection function
         crossoverParams,
-        onePointCrossover, // Crossover function
+        twoPointCrossover, // Crossover function
         verbosityLevel // Verbosity
     );
 
