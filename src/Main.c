@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
 
     // Check if user input is valid
     assert (numEvolutions > 0);
-    assert (populationSize > 0);
+    assert (populationSize > 1);  // To prevent infinite loop at selection
     assert (floatIsProba (mutationProbability));
     assert (floatIsProba (elitismRatio));
     assert (floatIsProba (activeGeneRate));
