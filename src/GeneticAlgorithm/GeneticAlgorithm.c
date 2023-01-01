@@ -80,7 +80,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     }
 
     // Open output files
-    FILE *fittestIndiFile = fopen("./logs/fittestIndividual.txt", "w");
+    FILE *fittestIndiFile = fopen("./logs/00fittestIndividual.txt", "w");
     if (!fittestIndiFile) {
         freeSelectedIndividuals(selectedIndis);
         freeFitnessScores(fitnessScores);
@@ -88,7 +88,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         return NULL;
     }
 
-    FILE *accumulatedFitnessFile = fopen("./logs/avgFitness.txt", "w");
+    FILE *accumulatedFitnessFile = fopen("./logs/02avgFitness.txt", "w");
     if (!accumulatedFitnessFile) {
         fclose(fittestIndiFile);
         freeSelectedIndividuals(selectedIndis);
@@ -97,7 +97,7 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         return NULL;
     }
 
-    FILE *elitistsFitnessFile = fopen("./logs/elitistsAvgFitness.txt", "w");
+    FILE *elitistsFitnessFile = fopen("./logs/01elitistsAvgFitness.txt", "w");
     if (!elitistsFitnessFile) {
         fclose(accumulatedFitnessFile);
         fclose(fittestIndiFile);
