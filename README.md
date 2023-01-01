@@ -29,11 +29,21 @@ The following make instructions are available..
 
 ---
 
+# Log files and Visualization
+
+A cruicial part of this framework is the function `runGeneticAlgorithm`, which is running the Genetic Algorithm with given parameters, as the name already suggests. That function is constantly writing performance metrics to log files.
+
+This project contains a small python script, `visualizeLogs.py`. It can be executed at the projects root folder to generate visualizations of the log files mentioned above.
+
+---
+
 # Environment
 
 The fitness function provided by an `Environment_t` can not yield positive values.
 
 ---
+
+# Limitations and Improvement Ideas
 
 The code could be speed up by parallelization, using OpenMP for example. But this would require some extra work to maintain portability. This could be achieved using Docker.
 
