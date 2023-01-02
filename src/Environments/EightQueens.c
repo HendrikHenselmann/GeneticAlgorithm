@@ -144,21 +144,6 @@ void eightQueens_displayIndividual (Individual_t individual) {
     return;
 }
 
-// Display the Population interpreted according to the problem
-void eightQueens_displayPopulation (Population_t population) {
-
-    // Print the heading
-    printf("\n\n%s", separator);
-    printf("\nPopulation of %zu Individuals:", population->populationSize);
-    printf("\n%s\n", separator);
-
-    // Print every Individual
-    for (size_t i = 0; i < population->populationSize; i++)
-        eightQueens_displayIndividual(population->array[i]);
-
-    return;
-}
-
 // Calculate the optimal solution
 // Returning INT_MIN to indicate failure of malloc
 float eightQueens_calcOptimum (void) {}
@@ -166,9 +151,8 @@ float eightQueens_calcOptimum (void) {}
 // Assembling the environment
 Environment_t eightQueensProblem = (Environment_t) {
     .individualSize = 48,  // (x, y) coordinates of 8 Queens, x and y in [0, 7] encoded by 3 bit => 8 * 2 * 3 = 48
-    .geneLength = 3,
+    .geneLength = 3,  // 3 bools encode one coordinate
     .displayProblem = eightQueens_displayProblem,
     .displayIndividual = eightQueens_displayIndividual,
-    .displayPopulation = eightQueens_displayPopulation,
     .calcIndividualFitness = eightQueens_individualFitness,
     .calcPopulationFitness = eightQueens_populationFitness};

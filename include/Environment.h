@@ -15,8 +15,6 @@ typedef struct {
     void (*displayProblem) (void);
     // Displaying the interpretation of one individual
     void (*displayIndividual) (Individual_t individual);
-    // Displaying the interpretation of every individual of a population
-    void (*displayPopulation) (Population_t population);
     // Calculating the fitness value of an individual
     float (*calcIndividualFitness) (Individual_t individual);
     // Calculating the fitness value of every individual of the population.

@@ -128,20 +128,6 @@ void knapsack_displayIndividual(Individual_t individual) {
     return;
 }
 
-// Display the Population interpreted according to the problem
-void knapsack_displayPopulation(Population_t population) {
-    // Print the heading
-    printf("\n\n%s", separator);
-    printf("\nPopulation of %zu Individuals:", population->populationSize);
-    printf("\n%s\n", separator);
-
-    // Print every Individual
-    for (size_t i = 0; i < population->populationSize; i++)
-        knapsack_displayIndividual(population->array[i]);
-
-    return;
-}
-
 // Calculate the optimal solution fitness
 // Returning INT_MIN to indicate failure of malloc
 float knapsack_calcOptimum(void) {
@@ -196,6 +182,5 @@ Environment_t knapsackProblem = (Environment_t) {
     .geneLength = 1,
     .displayProblem = knapsack_displayProblem,
     .displayIndividual = knapsack_displayIndividual,
-    .displayPopulation = knapsack_displayPopulation,
     .calcIndividualFitness = knapsack_individualFitness,
     .calcPopulationFitness = knapsack_populationFitness};
