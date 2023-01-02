@@ -1,6 +1,7 @@
 // Copyright [2022] <Nicola Distl, Hendrik Henselmann>
 
 #include <time.h>
+#include <math.h>
 #include <float.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -73,7 +74,8 @@ int main(int argc, char *argv[]) {
     assert (floatIsProba (mutationProbability));
     assert (floatIsProba (elitismRatio));
     assert (floatIsProba (activeGeneRate));
-    assert (verbosityLevel >= 0 && verbosityLevel <= 3);
+    assert (verbosityLevel >= 0 && verbosityLevel <= 2);
+    assert (verbosityLevel <= 1 || round (elitismRatio * populationSize) >= 1);
 
     // Choosing the problem
     Environment_t env = eightQueensProblem;

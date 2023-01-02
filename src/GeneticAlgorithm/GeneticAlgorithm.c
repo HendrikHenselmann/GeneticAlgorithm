@@ -156,30 +156,24 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
         fprintf(elitistsFitnessFile, "%.3f\n",
             accElitistsFitness / numElitists);
 
+        // Print a progress bar
+        size_t barWidth = 20;
+        size_t progress =
+            round(
+                ((float) barWidth * (float) (generation + 1))
+                / (float) params.numEvolutions
+            );
+        printf("\rProgress: [");
+        for (int _ = 0; _ < progress; _++) printf("\u2593");
+        for (int _ = progress; _ < barWidth; _++) printf("\u2591");
+        printf("]   Generation: [%zu/%zu]", generation+1, params.numEvolutions);
+
         // Print intermediate fitness scores depending on verbosity level
-        if (params.verbosityLevel == 3)
-            printFitnessScores(fitnessScores);
-        else if (params.verbosityLevel == 2) {
-            printf("Max fitness: %.03f | acc. fitness: %.03f\n",
-                fitnessScores->array[0], accFitness);
-        } else if (params.verbosityLevel == 1)
-            printf("Max fitness: %.03f\n", fitnessScores->array[0]);
-        else if (params.verbosityLevel == 0)
-        {
-            // Print a progress bar
-            size_t barWidth = 10;
-            size_t progress =
-                round(
-                    ((float) barWidth * (float) (generation + 1))
-                    / (float) params.numEvolutions
-                );
-            printf("\rProgress: [");
-            for (int _ = 0; _ < progress; _++) printf("\u2593");
-            for (int _ = progress; _ < barWidth; _++)
-                printf("\u2591");
-            printf("]\tGeneration: [%zu/%zu]",
-                generation+1, params.numEvolutions);
-        }
+        if (params.verbosityLevel >= 1)
+            printf("   Max fitness: %.02f", fitnessScores->array[0]);
+        if (params.verbosityLevel >= 2)
+            printf("   avg. elitists fitness: %.02f",
+                accElitistsFitness / numElitists);
 
         // SELECTION: Select individuals for reproduction (/"crossover")
         params.selectionFunc(params.selectionParams);
@@ -200,13 +194,8 @@ Population_t runGeneticAlgorithm(GAParams_t params) {
     // Sort fitness scores
     applyElitism(population, fitnessScores);
 
-    // Print final fitness scores
-    // Note that they are not sorted at this point
-    printf("\n\n\nFinal fitness: ");
-    printFitnessScores(fitnessScores);
-
     // Display the fittest individual
-    printf("\n\nFinal Solution:\n");
+    printf("\n\n\nFinal Solution:\n");
     params.env.displayIndividual(population->array[0]);
 
     // Sum fitness scores and write them to files
