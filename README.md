@@ -9,6 +9,12 @@ It was created for the sake of learning.
 
 ---
 
+# Notation and corresponding custom types
+
+TODO
+
+---
+
 # Getting Started
 
 Download this repository and make sure that you do not change the project structure.
@@ -31,19 +37,31 @@ The following make instructions are available..
 
 ---
 
+# Creating your own `Environment_t`
+
+You can define your own environment to be solved with the provided Genetic Algorithm framework by following the steps below:
+
+At first, create a header file in `GeneticAlgorithm > include`. Try to use conventional naming, eg. EightQueens.h in camel case for the eight queens problem. You can copy the content of another environment header file, eg. the eightQueens.h, and replace the occurrence of "eightQueens" by the name of your problem.
+
+Second, create a source file in `GeneticAlgorithm > src > Environments`. Try to use conventional naming, eg. EightQueens.c in camel case for the eight queens problem. Define the `Environment_t` that you declared in your header file at step 1. Therefore the following struct member variables have to be defined:
+
+- `size_t individualSize` : The total number of booleans that encode a solution ("individual")
+- `size_t geneLength` : The number of booleans that encode one gene of an individual
+
+Furthermore the following struct member functions have to be defined:
+
+- `void displayProblem (void)` : Display a short description of the problem at hand.
+- `void displayIndividual (Individual_t individual)` : Display the interpretation of an individual in the context of your problem.
+- `float individualFitness (Individual_t individual)` : Calculate a fitness score that states the quality of the solution regarding your problem. Important note : Fitness scores have to be non-negative !!
+- `void populationFitness (Population_t population, FitnessScores_t fitnessScores)` : Calculate fitness scores that state the quality of every individual of the population. Important notes : Fitness score i has to corrspond to individual i of the population. Fitness scores have to be non-negative !!
+
+---
+
 # Log files and Visualization
 
 A cruicial part of this framework is the function `runGeneticAlgorithm`, which is running the Genetic Algorithm with given parameters, as the name already suggests. That function is constantly writing performance metrics to log files.
 
 This project contains a small python script, `visualizeLogs.py`. It can be executed at the projects root folder to generate visualizations of the log files mentioned above.
-
----
-
-# Environment
-
-You can define your own Environment to be solved with the proposed Genetic Algorithm framework.
-
-The fitness function provided by an `Environment_t` can not yield positive values.
 
 ---
 
