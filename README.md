@@ -55,6 +55,8 @@ Furthermore the following struct member functions have to be defined:
 - `float individualFitness (Individual_t individual)` : Calculate a fitness score that states the quality of the solution regarding your problem. Important note : Fitness scores have to be non-negative !!
 - `void populationFitness (Population_t population, FitnessScores_t fitnessScores)` : Calculate fitness scores that state the quality of every individual of the population. Important notes : Fitness score i has to corrspond to individual i of the population. Fitness scores have to be non-negative !!
 
+In the file `GeneticAlgorithm > src > Main.c`: Import your header at the top and then look for the line where     `Environment_t env` is defined. Just assign your newly created `Environment_t` to env. For example, `Environment_t env = eightQueensProblem;` in case of the eight queens problem.
+
 ---
 
 # Log files and Visualization
