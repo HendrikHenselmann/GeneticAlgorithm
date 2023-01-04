@@ -7,6 +7,8 @@ Our implementation is designed for single-objective optimization only.
 
 It was created for the sake of learning.
 
+This project was developed on MacOS and was not tested on other platforms.
+
 ---
 
 # Notation and corresponding custom types
@@ -34,6 +36,18 @@ The following make instructions are available..
 
 - `make compileTests` : Compiling the code that can be executed afterwards to run some test cases.
 - `make test` : Running the compiled tests. Therefore compiling test cases, if not already compiled.
+
+The executable file `main` is located in `GeneticAlgorithm > bin` after you have called `make compile`. You can run the program with the "-h" option (or "--help") to show the available command line arguments. The table below shows a list of the currently available arguments. Please note that, at the moment, these are just positional argument, which means that you have to specify the first 3 arguments even if you only want to change the mutation rate.
+
+| Argument  | Default |
+| ------------- | ------------- |
+| Number of evolutions  | 1000  |
+| Population size | 20  |
+| Mutation rate | 0.1  |
+| Elitism ratio | 0.2  |
+| Active gene rate at initialization | 0.5  |
+| Verbosity level | 0  |
+
 
 ---
 
