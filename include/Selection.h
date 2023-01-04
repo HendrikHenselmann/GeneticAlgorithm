@@ -60,5 +60,15 @@ void rouletteSelection(SelectionParams_t params);
 void tournamentSelection(SelectionParams_t params);
 
 // -----------------------------------------------------------------------------
+// Internal functions that can be tested
+// -----------------------------------------------------------------------------
+
+// Copying the selected parents to their location in the array of selected
+// individuals based on the current pairs id.
+void copySelectedParents(Population_t population,
+    SelectedIndividuals_t selectedIndividuals,
+    size_t pairID, size_t parent1ID, size_t parent2ID);
+
+// -----------------------------------------------------------------------------
 
 #endif  // SELECTION_H_
