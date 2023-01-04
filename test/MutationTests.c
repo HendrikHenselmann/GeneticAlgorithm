@@ -4,27 +4,23 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
 #include "../include/Mutation.h"
 #include "../include/PopulationInitialization.h"
 
-long NUM_ITEMS = 5;
-float MUTATION_PROBABILITY = 0.5;
-
 int main() {
-    // Set random seed
-    srand(128);
 
-    Population_t pop1 = initializePopulation(2, NUM_ITEMS, 0.5);
-    if (!pop1) {return -1;};
+    bool staticIndi[] = {false, false, false, false, false, false};
+    Individual_t indi = staticIndi;
 
-    printPopulation(pop1);
+    assert(indi[0] == false);
+    flipBit(indi, 0);
+    assert(indi[0] == true);
 
-    mutatePopulation(pop1, 0, MUTATION_PROBABILITY);
-
-    printPopulation(pop1);
-
-    freePopulation(pop1);
+    assert(indi[5] == false);
+    flipBit(indi, 5);
+    assert(indi[5] == true);
+    flipBit(indi, 5);
+    assert(indi[5] == false);
 
     return 0;
 }
