@@ -11,7 +11,7 @@ This project was developed on MacOS and was not tested on other platforms.
 
 ---
 
-# Notation and corresponding custom types
+# Notation and custom types
 
 ## Individual
 
