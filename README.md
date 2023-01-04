@@ -13,7 +13,27 @@ This project was developed on MacOS and was not tested on other platforms.
 
 # Notation and corresponding custom types
 
-TODO
+## Individual
+
+One solution instance of a problem is encoded as a vector of booleans and is called an individual. If you want to encode numbers you have to use multiple booleans to do so. Such a set of booleans, encoding one information (eg. one number), is called a gene. All your genes have to be of same size, eg. an individual can consist of 3 genes of length 2 each. This individual is of size 3\*2 = 6, because it consists of 6 booleans in total.
+
+Implementation:
+```
+typedef bool *Individual_t;
+```
+
+## Population
+
+The set of individuals at timestep t is called the population. The population size does not change during execution of the Genetic Algorithm. A population at timestep t is also called a generation. All the individuals of a population have to be of the same size, the same amount of genes and those genes have to be of same size too.
+
+Implementation:
+```
+typedef struct Population_ {
+    size_t populationSize;
+    size_t individualSize;
+    Individual_t *array;
+} *Population_t;
+```
 
 ---
 
@@ -39,14 +59,14 @@ The following make instructions are available..
 
 The executable file `main` is located in `GeneticAlgorithm > bin` after you have called `make compile`. You can run the program with the "-h" option (or "--help") to show the available command line arguments. The table below shows a list of the currently available arguments. Please note that, at the moment, these are just positional argument, which means that you have to specify the first 3 arguments even if you only want to change the mutation rate.
 
-| Argument  | Default |
-| ------------- | ------------- |
-| Number of evolutions  | 1000  |
-| Population size | 20  |
-| Mutation rate | 0.1  |
-| Elitism ratio | 0.2  |
-| Active gene rate at initialization | 0.5  |
-| Verbosity level | 0  |
+| Argument  | Default | Description |
+| ------------- | ------------- | ------------- |
+| Number of evolutions  | 1000  | How many times the evolution step is applied (Selection, Crossover, Mutation) |
+| Population size | 20  | How many individuals are part of the population. Not changing with evolution. |
+| Mutation rate | 0.1  | How likely it is that one bool of an individual is flipped. |
+| Elitism ratio | 0.2  | Elitism ratio is the percentage of individuals that will be copied to the next generation without being manipulated. |
+| Active gene rate | 0.5  | The probability of true booleans at random initialization of individuals. |
+| Verbosity level | 0 | The amount of text that is displayed at execution. 0: Progress bar only 1: Additionally, the fitness of fittest individual 1: Additionaly, the average fitness of elitists |
 
 
 ---
@@ -85,7 +105,9 @@ This project contains a small python script, `visualizeLogs.py`. It can be execu
 
 As stated above, this framework is restricted to single-objective optimization.
 
-The code could be speed up by parallelization, using OpenMP for example. But this would require some extra work to maintain portability. This could be achieved using Docker.
+Individual solutions are implemented as boolean vector. That is inefficient, because a boolean is at least the size of one byte and to encode a gene with more than one boolean you have to use much more space than needed. A better way to implement this would be to use integers instead and work with the bits of the integer.
+
+The execution speed could be improved by parallelization, using OpenMP for example. But this would require some extra work to maintain portability. This could be achieved using Docker.
 
 ---
 
