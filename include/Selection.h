@@ -60,7 +60,7 @@ void rouletteSelection(SelectionParams_t params);
 void tournamentSelection(SelectionParams_t params);
 
 // -----------------------------------------------------------------------------
-// Internal functions that can be tested
+// Internal functions that shall be tested
 // -----------------------------------------------------------------------------
 
 // Copying the selected parents to their location in the array of selected

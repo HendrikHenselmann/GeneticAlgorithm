@@ -1,4 +1,4 @@
-// Copyright [2021] <Nicola Distl, Hendrik Henselmann>
+// Copyright [2023] <Nicola Distl, Hendrik Henselmann>
 
 #include <stdlib.h>
 #include <assert.h>
