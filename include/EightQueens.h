@@ -27,9 +27,6 @@ void eightQueens_displayProblem(void);
 void eightQueens_displayIndividual (Individual_t individual);
 // Display the Population interpreted according to the problem
 void eightQueens_displayPopulation (Population_t population);
-// Calculate the optimal solution
-// Returning INT_MIN to indicate failure of malloc
-float eightQueens_calcOptimum (void);
 // ----------------------------------------------------------------------------
 
 

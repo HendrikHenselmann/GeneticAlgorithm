@@ -144,10 +144,6 @@ void eightQueens_displayIndividual (Individual_t individual) {
     return;
 }
 
-// Calculate the optimal solution
-// Returning INT_MIN to indicate failure of malloc
-float eightQueens_calcOptimum (void) {}
-
 // Assembling the environment
 Environment_t eightQueensProblem = (Environment_t) {
     .individualSize = 48,  // (x, y) coordinates of 8 Queens, x and y in [0, 7] encoded by 3 bit => 8 * 2 * 3 = 48
