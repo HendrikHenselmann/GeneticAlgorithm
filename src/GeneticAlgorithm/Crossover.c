@@ -16,6 +16,15 @@ CrossoverParams_t initTwoPointCrossoverParams(void) {
     return (CrossoverParams_t) {};
 }
 
+// Copying one section starting from element start with length numBooleans
+// of parent to offspring
+void copyIndividualSegment(Individual_t offspring, Individual_t parent,
+    size_t start, size_t numBooleans) {
+
+    memcpy(&(offspring[start]), &(parent[start]), numBooleans * sizeof(bool));
+
+}
+
 // For every pair of parents that are crossed over to form 2 children, one point
 // is randomly chosen. All genes up to that point of parent 1 are then passed
 // to children 1. The remaining genes of parent 1 are passed on to children 2.
@@ -37,20 +46,23 @@ void onePointCrossover(CrossoverParams_t params) {
 
         // Randomly choose a crossover point
         size_t crossPoint = rand() %
-            ((params.population->individualSize / params.geneLength) - 1);
+            (params.population->individualSize / params.geneLength);
+
+        // Calculate segment start points and lengths
+        size_t segment1Len = crossPoint*params.geneLength;
+        size_t segment2Start = crossPoint*params.geneLength;
+        size_t segment2Len =
+            params.population->individualSize-crossPoint*params.geneLength;
 
         // Execute crossover process
-        memcpy(offspring1, parent1,
-            crossPoint*params.geneLength*sizeof(bool));
-        memcpy(&(offspring1[crossPoint*params.geneLength]),
-            &(parent2[crossPoint*params.geneLength]),
-            (params.population->individualSize-crossPoint*params.geneLength)
-                *sizeof(bool));
-        memcpy(offspring2, parent2, crossPoint*params.geneLength*sizeof(bool));
-        memcpy(&(offspring2[crossPoint*params.geneLength]),
-            &(parent1[crossPoint*params.geneLength]),
-            (params.population->individualSize-crossPoint*params.geneLength)
-                *sizeof(bool));
+        copyIndividualSegment(offspring1, parent1, 0, segment1Len);
+        copyIndividualSegment(offspring2, parent2, 0, segment1Len);
+
+        copyIndividualSegment(offspring2, parent1, segment2Start,
+            segment2Len);
+        copyIndividualSegment(offspring1, parent2, segment2Start,
+            segment2Len);
+
     }
 }
 
@@ -86,29 +98,26 @@ void twoPointCrossover(CrossoverParams_t params) {
         }
 
         // Execute crossover of the first section
-        memcpy(offspring1, parent1,
-            crossPoint1*params.geneLength*sizeof(bool));
-        memcpy(offspring2, parent2,
-            crossPoint1*params.geneLength*sizeof(bool));
+        size_t segment1Len = crossPoint1*params.geneLength;
+        copyIndividualSegment(offspring1, parent1, 0, segment1Len);
+        copyIndividualSegment(offspring2, parent2, 0, segment1Len);
 
         // Execute crossover of the second section
-        memcpy(&(offspring1[crossPoint1*params.geneLength]),
-            &(parent2[crossPoint1*params.geneLength]),
-            (crossPoint2*params.geneLength-crossPoint1*params.geneLength)
-                *sizeof(bool));
-        memcpy(&(offspring2[crossPoint1*params.geneLength]),
-            &(parent1[crossPoint1*params.geneLength]),
-            (crossPoint2*params.geneLength-crossPoint1*params.geneLength)
-                *sizeof(bool));
+        size_t segment2Start = crossPoint1*params.geneLength;
+        size_t segment2Len =
+            crossPoint2*params.geneLength-crossPoint1*params.geneLength;
+        copyIndividualSegment(offspring2, parent1, segment2Start,
+            segment2Len);
+        copyIndividualSegment(offspring1, parent2, segment2Start,
+            segment2Len);
 
         // Execute crossover of the third section
-        memcpy(&(offspring1[crossPoint2*params.geneLength]),
-            &(parent1[crossPoint2*params.geneLength]),
-            (params.population->individualSize-crossPoint2*params.geneLength)
-                *sizeof(bool));
-        memcpy(&(offspring2[crossPoint2*params.geneLength]),
-            &(parent2[crossPoint2*params.geneLength]),
-            (params.population->individualSize-crossPoint2*params.geneLength)
-                *sizeof(bool));
+        size_t segment3Start = crossPoint2*params.geneLength;
+        size_t segment3Len =
+            params.population->individualSize-crossPoint2*params.geneLength;
+        copyIndividualSegment(offspring1, parent1, segment3Start,
+            segment3Len);
+        copyIndividualSegment(offspring2, parent2, segment3Start,
+            segment3Len);
     }
 }

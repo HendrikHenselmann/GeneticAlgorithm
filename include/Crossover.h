@@ -56,5 +56,14 @@ void onePointCrossover(CrossoverParams_t params);
 void twoPointCrossover(CrossoverParams_t params);
 
 // -----------------------------------------------------------------------------
+// Internal functions that shall be tested
+// -----------------------------------------------------------------------------
+
+// Copying one section starting from element start with length numBooleans
+// of parent to offspring
+void copyIndividualSegment(Individual_t offspring, Individual_t parent,
+    size_t start, size_t numBooleans);
+
+// -----------------------------------------------------------------------------
 
 #endif  // CROSSOVER_H_
