@@ -15,7 +15,7 @@ This project was developed on MacOS and was not tested on other platforms.
 
 ## Individual
 
-One solution instance of a problem is encoded as a vector of booleans and is called an individual. If you want to encode numbers you have to use multiple booleans to do so. Such a set of booleans, encoding one information (eg. one number), is called a gene. All your genes have to be of same size, eg. an individual can consist of 3 genes of length 2 each. This individual is of size 3\*2 = 6, because it consists of 6 booleans in total.
+One solution instance of a problem is encoded as a vector of booleans and is called an individual, also known as chromosome. If you want to encode numbers you have to use multiple booleans to do so. Such a set of booleans, encoding one information (eg. one number), is called a gene. All your genes have to be of same size, eg. an individual can consist of 3 genes of length 2 each. This individual is of size 3\*2 = 6, because it consists of 6 booleans in total.
 
 Implementation:
 ```
