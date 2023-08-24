@@ -103,13 +103,13 @@ This project contains a small python script, `visualizeLogs.py`. It can be execu
 
 # Limitations and Improvement Ideas
 
-As stated above, this framework is restricted to single-objective optimization.
+- As stated above, this framework is restricted to single-objective optimization.
 
-Individual solutions are implemented as boolean vector. That is inefficient because a boolean is at least the size of one byte and to encode a gene with more than one boolean you have to use much more space than needed. A better way to implement this would be to use integers instead and work with the bits of the integer.
+- Individual solutions are implemented as boolean vector. That is inefficient because a boolean is at least the size of one byte and to encode a gene with more than one boolean you have to use much more space than needed. A better way to implement this would be to use integers instead and work with the bits of the integer.
 
-An `Environment_t` represents a problem instance as opposed to a class of problems.
+- An `Environment_t` represents a problem instance as opposed to a class of problems.
 
-The execution speed could be improved by parallelization, using OpenMP for example. But this would require some extra work to maintain portability. This could be achieved using Docker.
+- The execution speed could be improved by parallelization, using OpenMP for example. But this would require some extra work to maintain portability. This could be achieved using Docker.
 
 ---
 
